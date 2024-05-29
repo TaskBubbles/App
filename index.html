@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv='cache-control' content='no-cache'> 
+    <meta http-equiv='expires' content='0'> 
+    <meta content="user-scalable=no" name="viewport"/>
+
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+  </head>
+  <body>   
+
+    <div class="bottomNav">
+      <p>· Tap to Edit</p>
+      <p>· Hold to POP</p>      
+      <a href="https://www.x10guy.studio/task-bubbles">Want to this to be a real app? share the waitlist</a>
+    </div>
+
+    <!-- add task form-->
+    <div class="add-task">
+
+      <div class="add-task-backdrop"></div>
+      <h1 class="heading">Add Task</h1>
+      <div class="input-group">
+        <input type="text" maxlength="18" id="task-input" />
+      </div>
+
+      <div class="input-group" id="sizeBtns">
+          <button class="sizeBtn" value="0.25"><div class="sizeBtnDiv"></div></button>
+          <button class="sizeBtn" value=".5"><div class="sizeBtnDiv"></div></button>
+          <button class="sizeBtn" value="1"><div class="sizeBtnDiv"></div></button>
+          <button class="sizeBtn" value="1.5"><div class="sizeBtnDiv"></div></button>
+          <button class="sizeBtn" value="2"><div class="sizeBtnDiv"></div></button>
+      </div>
+
+      <div class="input-group">
+        <input type="date" id="date-input" />
+      </div>
+      <!-- <div class="input-group">
+        <input type="color" value='#ffffff' id="color-input"  />
+      </div> -->
+      <div class="input-group" id="colorButtons">
+          <button class="colorBtn" value="0">
+          <button class="colorBtn" value="1">
+          <button class="colorBtn" value="2">
+          <button class="colorBtn" value="3">
+          <button class="colorBtn" value="4">
+      </div>
+      <div class="btns">
+        <button class="add-btn" onclick="ConfirmTaskCreation()">Confirm</button>
+      </div>
+    </div>
+    
+    
+    <script src="matter.js"></script>
+    <script src="variables.js"></script>
+    <script src="TaskBubble.js"></script>
+    <script src="AddTaskButton.js"></script>
+    <script src="app.js"></script>
+
+  </body>
+</html>

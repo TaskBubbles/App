@@ -1,0 +1,266 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  touch-action: pan-x pan-y;
+  height: 100%;
+  background-color: #110d1c;
+  font-family: "Rubik", sans-serif;
+  overflow: hidden;
+}
+
+.add-task {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  bottom: -100%;
+  left: 10%;
+  width: 80%;
+  height: min;
+  padding-bottom: 1rem;
+  transition: all 0.3s;
+}
+
+.add-task.active {
+  bottom: 0;
+}
+
+.add-task .heading {
+  font-size: 3vh;
+  margin-bottom: 2vh;
+}
+
+.input-group {
+  display: flex;
+  justify-content: center;
+}
+
+.input-group input {
+  box-sizing: content-box;
+  padding: 1rem;
+  margin: 0.5rem;
+  border-radius: 5vh;
+  background-color: #fff;
+  border: 1.5px solid #fffc;
+  text-align: center;
+  font-size: 2vh;
+  width: 30rem;
+  box-shadow: 1px 3px 5px 0px #0003;
+}
+
+#sizeButtons {
+  display: flex;
+  width: 33rem;
+}
+#sizeButtons .sizeIncrease-btn,
+#sizeButtons .sizeDecrease-btn {
+  color: white;
+  font-size: 2rem;
+}
+
+#sizeButtons .sizeIncrease-btn {
+  background-color: #1b3;
+}
+#sizeButtons .sizeDecrease-btn {
+  background-color: #b13;
+}
+#sizeButtons .sizeIncrease-btn:active {
+  background-color: #2c4;
+}
+#sizeButtons .sizeDecrease-btn:active {
+  background-color: #c24;
+}
+
+.colorBtn {
+  padding: 2.2rem;
+  margin: 1.1rem;
+  margin-top: 2rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1.5px solid #fffc;
+  box-shadow: 1px 3px 5px 0px #0003;
+}
+
+.colorBtn:active {
+  background-color: #fefefe !important;
+}
+
+.sizeBtn {
+  align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.2rem;
+  margin: 1.1rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: 1.5px solid #fffc;
+  box-shadow: 1px 3px 5px 0px #0003;
+}
+
+.sizeBtn:active .sizeBtnDiv {
+  background-color: #fefefe;
+}
+.sizeBtnDiv {
+  padding: 10px;
+  border-radius: 50%;
+  background-color: rgb(41, 36, 77);
+}
+.btns {
+  display: flex;
+  justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btns button {
+  padding: 2vh 4vh;
+  margin: 4vh;
+  border-radius: 500px;
+  border: none;
+  font-size: 2vh;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1.5px solid #fffc;
+}
+
+.btns button.add-btn {
+  background-color: #29262d;
+  color: white;
+  border: 1.5px solid #fffc;
+}
+.btns button.add-btn:active {
+  background-color: #50505f;
+  border: 1.5px solid #fffc;
+}
+
+.add-task-backdrop {
+  position: absolute;
+  z-index: -1;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 135%;
+  height: 110%;
+  border-radius: 50% 50% 0 0;
+  background: #fffc;
+  backdrop-filter: blur(10px);
+}
+
+.zoom-div {
+  width: 100%;
+  height: 100%;
+  display: none;
+  position: fixed;
+}
+.zoom-div.active {
+  display: inline;
+}
+.zoom-btn {
+  /* left: calc(50% - 3rem); */
+  right: 0%;
+  width: 4rem;
+  height: 4rem;
+  margin: 1.5rem;
+  font-size: 1.5rem;
+  position: absolute;
+  display: inline;
+  background-color: transparent;
+  border: none;
+}
+
+.zoom-btn-icon {
+  fill: #ccc;
+  border-radius: 50%;
+  transition-duration: 100ms;
+}
+
+.zoom-btn-icon.active {
+  fill: #c23;
+  box-shadow: 0 0 50px #c23;
+}
+
+.login-div {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  gap: 50px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #110d1c;
+  color: white;
+}
+
+.login-btn {
+  font-weight: 600;
+  width: 8rem;
+  height: 8rem;
+  font-size: 1.5rem;
+  color: black;
+  background-color: white;
+  border: none;
+  border-radius: 50%;
+}
+
+.login-btn:active {
+  background-color: #aaa;
+}
+
+.logout-btn {
+  font-weight: 600;
+  position: absolute;
+  margin: 1.5rem;
+  width: 4rem;
+  height: 4rem;
+  font-size: 0.8rem;
+  color: white;
+  background-color: rgb(221, 113, 113);
+  border: none;
+  border-radius: 50%;
+}
+
+.logout-btn:active {
+  background-color: rgb(221, 133, 133);
+}
+
+.disclamer {
+  text-align: center;
+  width: 50%;
+  height: 0px;
+}
+a {
+  color: white;
+}
+h3 {
+  height: 0px;
+  line-height: -30px;
+  color: red;
+}
+
+.bottomNav {
+  position: fixed;
+
+  bottom: 0%;
+  font-size: 1.5svh;
+  line-height: 150%;
+  display: flexbox;
+
+  padding: 1.5svh;
+
+  color: #555;
+  pointer-events: none;
+}
+
+.bottomNav a {
+  pointer-events: all;
+}
