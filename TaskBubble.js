@@ -52,6 +52,7 @@ class TaskBubble {
         this.ClearOutline();
         clearInterval(this.editInterval);
 
+        SaveData();
     }
 
     StartPress() {
@@ -77,6 +78,9 @@ class TaskBubble {
     }
 
     PopBubble() {
+
+        SaveData();
+
         Composite.remove(bubbleStack, [this.body]);
         Composite.remove(engine.world, [this.body]);
     }

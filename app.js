@@ -28,9 +28,10 @@ let render = Render.create({
     wireframes: false,
     width: window.innerWidth,
     height: window.innerHeight,
-    background: '#110D1C',
+    background: '#f0edfc',
   },
 });
+
 
 //#region Mouse Setup
 let mouse = Mouse.create(render.canvas);
@@ -70,6 +71,7 @@ const dateInput = document.getElementById("date-input");
 //#endregion
 
 //START
+
 document.addEventListener("DOMContentLoaded", event => {
   colorButtons.forEach((btn, i) => {
     btn.style.backgroundColor = ColorScheme[i];
@@ -80,7 +82,20 @@ document.addEventListener("DOMContentLoaded", event => {
     sizeButtonDivs[i].style.padding = btn.value * 1.5 + "rem";
     btn.addEventListener("click", SetNewBubbleScale);
   });
+
+  LoadData();
 });
+
+let darkTheme = true;
+function ToggleTheme() {
+  if (!darkTheme) {
+    render.options.background = "#f0edfc";
+  }
+  else {
+    render.options.background = "#110d1c";
+  }
+  darkTheme = !darkTheme;
+}
 
 //#region Task Editing and Creation
 let editedBubble;
@@ -297,4 +312,3 @@ World.add(engine.world, [bubbleStack, addTaskButton.body, mouseConstraint]);
 Runner.run(runner, engine);
 Render.run(render);
 //#endregion
-

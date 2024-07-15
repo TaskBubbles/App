@@ -8,7 +8,7 @@ body {
   margin: 0;
   touch-action: pan-x pan-y;
   height: 100%;
-  background-color: #110d1c;
+  background-color: #f0edfc;
   font-family: "Rubik", sans-serif;
   overflow: hidden;
 }
@@ -263,4 +263,14 @@ h3 {
 
 .bottomNav a {
   pointer-events: all;
+  color: #555;
+}
+
+#theme-checkbox {
+  width: 3rem;
+  height: 3rem;
+}
+
+.theme-div {
+  position: absolute;
 }
