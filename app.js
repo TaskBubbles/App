@@ -68,6 +68,7 @@ const sizeButtonDivs = document.querySelectorAll(".sizeBtnDiv")
 const titleInput = document.getElementById("task-input");
 const colorInput = document.getElementById("color-input");
 const dateInput = document.getElementById("date-input");
+const themeInput = document.getElementById("theme-input");
 //#endregion
 
 //START
@@ -86,15 +87,16 @@ document.addEventListener("DOMContentLoaded", event => {
   LoadData();
 });
 
-let darkTheme = true;
+let darkTheme = false;
 function ToggleTheme() {
+  darkTheme = !darkTheme;
   if (!darkTheme) {
     render.options.background = "#f0edfc";
   }
   else {
     render.options.background = "#110d1c";
   }
-  darkTheme = !darkTheme;
+  SaveTheme();
 }
 
 //#region Task Editing and Creation

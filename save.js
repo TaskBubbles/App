@@ -11,6 +11,10 @@ function SaveData() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
+function SaveTheme() {
+    localStorage.setItem("dark-theme", JSON.stringify(darkTheme));
+}
+
 function LoadData() {
 
     let data = JSON.parse(localStorage.getItem("tasks"));
@@ -18,4 +22,8 @@ function LoadData() {
     data.forEach(bubble => {
         new TaskBubble(null, bubble.title, bubble.date, bubble.color, bubble.scale);
     });
+
+    if (JSON.parse(localStorage.getItem("dark-theme"))) {
+        themeInput.click();
+    }
 }
