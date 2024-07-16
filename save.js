@@ -1,4 +1,5 @@
 function SaveData() {
+
     let tasks = bubbleStack.bodies.map(bubble => {
         return {
             title: bubble.title,
@@ -16,12 +17,16 @@ function SaveTheme() {
 }
 
 function LoadData() {
-
     let data = JSON.parse(localStorage.getItem("tasks"));
 
-    data.forEach(bubble => {
-        new TaskBubble(null, bubble.title, bubble.date, bubble.color, bubble.scale);
-    });
+    if (data != null) {
+        data.forEach(bubble => {
+            new TaskBubble(null, bubble.title, bubble.date, bubble.color, bubble.scale);
+        });
+    }
+    else {
+        console.log("abdfvd");
+    }
 
     if (JSON.parse(localStorage.getItem("dark-theme"))) {
         themeInput.click();

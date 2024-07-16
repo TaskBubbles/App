@@ -78,11 +78,10 @@ class TaskBubble {
     }
 
     PopBubble() {
-
-        SaveData();
-
         Composite.remove(bubbleStack, [this.body]);
+        SaveData();
         Composite.remove(engine.world, [this.body]);
+
     }
 
     SetScale(scale) {
