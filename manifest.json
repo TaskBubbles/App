@@ -12,5 +12,6 @@
       "type": "image/png",
       "purpose": "any"
     }
-  ]
+  ],
+  "start_url": "https://taskbubbles.github.io/App/"
 }
