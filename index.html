@@ -46,7 +46,7 @@
 
     <div class="theme-div">
       <!-- Rounded switch -->
-      <label class="switch">
+      <label for="theme-input" class="switch">
         <input type="checkbox" id="theme-input" onclick="ToggleTheme()">
         <span class="slider round"></span>
       </label>
@@ -58,32 +58,34 @@
       <div class="add-task-backdrop"></div>
       <h1 class="heading">Add Task</h1>
       <div class="input-group">
+        <label for="task-input"></label>
         <input type="text" maxlength="18" id="task-input" />
       </div>
 
       <div class="input-group" id="sizeBtns">
-          <button class="sizeBtn" value="0.25"><div class="sizeBtnDiv"></div></button>
-          <button class="sizeBtn" value=".5"><div class="sizeBtnDiv"></div></button>
-          <button class="sizeBtn" value="1"><div class="sizeBtnDiv"></div></button>
-          <button class="sizeBtn" value="1.5"><div class="sizeBtnDiv"></div></button>
-          <button class="sizeBtn" value="2"><div class="sizeBtnDiv"></div></button>
+          <button class="sizeBtn" value="0.25"><div class="sizeBtnDiv" alt="Size Button Tiny"></div></button>
+          <button class="sizeBtn" value=".5"><div class="sizeBtnDiv" alt="Size Button Small"></div></button>
+          <button class="sizeBtn" value="1"><div class="sizeBtnDiv" alt="Size Button Medium"></div></button>
+          <button class="sizeBtn" value="1.5"><div class="sizeBtnDiv" alt="Size Button Large"></div></button>
+          <button class="sizeBtn" value="2"><div class="sizeBtnDiv" alt="Size Button Huge"></div></button>
       </div>
 
       <div class="input-group">
+        <label for="date-input"></label>
         <input type="date" id="date-input" />
       </div>
       <!-- <div class="input-group">
         <input type="color" value='#ffffff' id="color-input"  />
       </div> -->
       <div class="input-group" id="colorButtons">
-          <button class="colorBtn" value="0">
-          <button class="colorBtn" value="1">
-          <button class="colorBtn" value="2">
-          <button class="colorBtn" value="3">
-          <button class="colorBtn" value="4">
+          <button class="colorBtn" value="0" alt="Color Button Orange">
+          <button class="colorBtn" value="1" alt="Color Button Yellow">
+          <button class="colorBtn" value="2" alt="Color Button Greem">
+          <button class="colorBtn" value="3" alt="Color Button Blue">
+          <button class="colorBtn" value="4" alt="Color Button Purple">
       </div>
       <div class="btns">
-        <button class="add-btn" onclick="ConfirmTaskCreation()">Confirm</button>
+        <button class="add-btn" onclick="ConfirmTaskCreation()" alt="Confirm Task Creation Button">Confirm</button>
       </div>
     </div>
     
