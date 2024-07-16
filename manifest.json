@@ -2,8 +2,8 @@
   "name": "Task Bubbles",
   "short_name": "Task Bubbles",
   "display": "fullscreen",
-  "background_color": "#fff",
-  "theme_color": "#000",
+  "background_color": "#f0edfc",
+  "theme_color": "#110d1c",
   "description": "A bubble layout for managing tasks",
   "icons": [
     {
