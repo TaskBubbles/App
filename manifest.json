@@ -1,8 +1,7 @@
 {
   "name": "Task Bubbles",
   "short_name": "Task Bubbles",
-  "start_url": ".",
-  "display": "standalone",
+  "display": "fullscreen",
   "background_color": "#fff",
   "theme_color": "#000",
   "description": "A bubble display for managing tasks.",
