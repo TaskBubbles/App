@@ -1,0 +1,17 @@
+{
+  "name": "Task Bubbles",
+  "short_name": "Task Bubbles",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#fff",
+  "theme_color": "#000",
+  "description": "A bubble display for managing tasks.",
+  "icons": [
+    {
+      "src": "/images/Logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
