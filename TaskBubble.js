@@ -31,8 +31,12 @@ class TaskBubble {
     }
 
     StartModify() {
-        titleInput.value = this.body.title;
+        if (this.body.title != defaultTaskTitle) {
+            titleInput.value = this.body.title;
+        }
+
         dateInput.value = null;
+
         if (this.body.date != null) {
             dateInput.value = this.body.date;
         }
@@ -90,7 +94,13 @@ class TaskBubble {
     }
 
     UpdateAttributes() {
-        this.body.title = titleInput.value;
+        if (titleInput.value.length > 0) {
+            this.body.title = titleInput.value;
+        }
+        else {
+            this.body.title = defaultTaskTitle;
+        }
+
         this.body.date = dateInput.value;
     }
 
