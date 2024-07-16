@@ -24,9 +24,6 @@ function LoadData() {
             new TaskBubble(null, bubble.title, bubble.date, bubble.color, bubble.scale);
         });
     }
-    else {
-        console.log("abdfvd");
-    }
 
     if (JSON.parse(localStorage.getItem("dark-theme"))) {
         themeInput.click();
