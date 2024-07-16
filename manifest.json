@@ -4,10 +4,16 @@
   "display": "fullscreen",
   "background_color": "#fff",
   "theme_color": "#000",
-  "description": "A bubble display for managing tasks.",
+  "description": "A bubble layout for managing tasks",
   "icons": [
     {
-      "src": "/images/Logo.png",
+      "src": "/images/Logo-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/Logo-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
