@@ -46,7 +46,8 @@
 
     <div class="theme-div">
       <!-- Rounded switch -->
-      <label for="theme-input" class="switch">
+      <label class="switch">
+        <label for="theme-input"></label>
         <input type="checkbox" id="theme-input" onclick="ToggleTheme()">
         <span class="slider round"></span>
       </label>
@@ -63,11 +64,11 @@
       </div>
 
       <div class="input-group" id="sizeBtns">
-          <button class="sizeBtn" value="0.25"><div class="sizeBtnDiv" aria-label="Size Button Tiny"></div></button>
-          <button class="sizeBtn" value=".5"><div class="sizeBtnDiv" aria-label="Size Button Small"></div></button>
-          <button class="sizeBtn" value="1"><div class="sizeBtnDiv" aria-label="Size Button Medium"></div></button>
-          <button class="sizeBtn" value="1.5"><div class="sizeBtnDiv" aria-label="Size Button Large"></div></button>
-          <button class="sizeBtn" value="2"><div class="sizeBtnDiv" aria-label="Size Button Huge"></div></button>
+          <button class="sizeBtn" value="0.25"><div class="sizeBtnDiv" aria-label="Tiny"></div></button>
+          <button class="sizeBtn" value=".5"><div class="sizeBtnDiv" aria-label="Small"></div></button>
+          <button class="sizeBtn" value="1"><div class="sizeBtnDiv" aria-label="Medium"></div></button>
+          <button class="sizeBtn" value="1.5"><div class="sizeBtnDiv" aria-label="Large"></div></button>
+          <button class="sizeBtn" value="2"><div class="sizeBtnDiv" aria-label="Huge"></div></button>
       </div>
 
       <div class="input-group">
@@ -78,11 +79,11 @@
         <input type="color" value='#ffffff' id="color-input"  />
       </div> -->
       <div class="input-group" id="colorButtons">
-          <button class="colorBtn" value="0" aria-label="Color Button Orange">
-          <button class="colorBtn" value="1" aria-label="Color Button Yellow">
-          <button class="colorBtn" value="2" aria-label="Color Button Greem">
-          <button class="colorBtn" value="3" aria-label="Color Button Blue">
-          <button class="colorBtn" value="4" aria-label="Color Button Purple">
+          <button class="colorBtn" value="0" aria-label="Orange">
+          <button class="colorBtn" value="1" aria-label="Yellow">
+          <button class="colorBtn" value="2" aria-label="Greem">
+          <button class="colorBtn" value="3" aria-label="Blue">
+          <button class="colorBtn" value="4" aria-label="Purple">
       </div>
       <div class="btns">
         <button class="add-btn" onclick="ConfirmTaskCreation()" alt="Confirm Task Creation Button">Confirm</button>
