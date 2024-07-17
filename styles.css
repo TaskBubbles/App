@@ -5,6 +5,7 @@
 }
 html,
 body {
+  position: absolute;
   margin: 0;
   touch-action: pan-x pan-y;
   height: 100%;
@@ -14,8 +15,7 @@ body {
 }
 
 .add-task {
-  position: absolute;
-  z-index: 1;
+  position: fixed;
   display: flex;
   flex-direction: column;
   justify-content: center;
