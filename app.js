@@ -69,6 +69,7 @@ const titleInput = document.getElementById("task-input");
 const colorInput = document.getElementById("color-input");
 const dateInput = document.getElementById("date-input");
 const themeInput = document.getElementById("theme-input");
+const themeMeta = document.querySelector('meta[name="theme-color"]');
 //#endregion
 
 //START
@@ -92,9 +93,11 @@ function ToggleTheme() {
   darkTheme = !darkTheme;
   if (!darkTheme) {
     render.options.background = "#f0edfc";
+    themeMeta.setAttribute('content', "#f0edfc");
   }
   else {
     render.options.background = "#110d1c";
+    themeMeta.setAttribute('content', "#110d1c");
   }
   SaveTheme();
 }
