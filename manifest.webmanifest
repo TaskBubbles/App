@@ -1,7 +1,7 @@
 {
   "name": "Task Bubbles",
-  "short_name": "Task Bubbles",
-  "display": "fullscreen",
+  "short_name": "Task Bubble",
+  "display": "standalone",
   "background_color": "#f0edfc",
   "theme_color": "#110d1c",
   "description": "A bubble layout for managing tasks",
@@ -25,5 +25,5 @@
       "purpose": "maskable"
     }
   ],
-  "start_url": "."
+  "start_url": "https://taskbubbles.github.io/App/"
 }
