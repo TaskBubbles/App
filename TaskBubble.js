@@ -34,11 +34,15 @@ class TaskBubble {
         if (this.body.title != defaultTaskTitle) {
             titleInput.value = this.body.title;
         }
-
-        dateInput.value = null;
+        else {
+            titleInput.value = null;
+        }
 
         if (this.body.date != null) {
             dateInput.value = this.body.date;
+        }
+        else {
+            dateInput.value = null;
         }
         editedBubble = this;
         this.body.isStatic = true;
