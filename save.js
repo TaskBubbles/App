@@ -21,9 +21,7 @@ function LoadData() {
 
     if (data != null) {
         data.forEach(bubble => {
-            let pos = RandomPosAroundCenter(1400);
-            console.log(pos);
-            new TaskBubble(pos, bubble.title, bubble.date, bubble.color, bubble.scale);
+            new TaskBubble(RandomPosAroundCenter(1000), bubble.title, bubble.date, bubble.color, bubble.scale);
         });
     }
 
