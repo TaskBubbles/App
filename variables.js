@@ -19,8 +19,8 @@ function easeInOutQuad(t) {
 
 function RandomPosAroundCenter(magnitude = 1) {
     let centerPoint = Vector.create(render.canvas.width / 2, render.canvas.height / 2);
-    let newX = (Math.random() > 0.5 ? 1 : -1) * Math.random() * magnitude;
-    let newY = (Math.random() > 0.5 ? 1 : -1) * Math.random() * magnitude;
+    let newX = (Math.random() > 0.5 ? 1 : -1) * Math.max(Math.random(), 0.7) * magnitude;
+    let newY = (Math.random() > 0.5 ? 1 : -1) * Math.max(Math.random(), 0.7) * magnitude;
     return Vector.create(centerPoint.x + newX, centerPoint.y + newY);
 }
 //#endregion
