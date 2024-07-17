@@ -16,7 +16,12 @@ function lerp(t, MinInput, MaxInput, MinOutput, MaxOutput) {
 function easeInOutQuad(t) {
     return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
 }
-//#endregion
-function GetScale() {
 
+function RandomPosAroundCenter(magnitude = 1) {
+    let centerPoint = Vector.create(render.canvas.width / 2, render.canvas.height / 2);
+    let newX = (Math.random() > 0.5 ? 1 : -1) * Math.random() * magnitude;
+    let newY = (Math.random() > 0.5 ? 1 : -1) * Math.random() * magnitude;
+    return Vector.create(centerPoint.x + newX, centerPoint.y + newY);
 }
+//#endregion
+
