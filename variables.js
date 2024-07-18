@@ -1,5 +1,5 @@
 
-const ColorScheme = ['#db522c', '#edb71f', '#15ba57', '#22c5f9', '#832cff'];
+const ColorScheme = ['#ffffff', '#edb71f', '#15ba57', '#22c5f9', '#832cff'];
 
 let defaultBubbleSize = 200 - Math.sqrt(window.innerWidth * 15);
 let defaultTaskTitle = "Task Name";
