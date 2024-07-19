@@ -64,6 +64,7 @@
 
       <div class="add-task-backdrop"></div>
       <h1 class="heading">Add Task</h1>
+
       <div class="input-group">
         <label for="task-input"></label>
         <input type="text" maxlength="250" id="task-input" placeholder="Task Name"/>
@@ -77,10 +78,6 @@
           <button class="sizeBtn" value="2"><div class="sizeBtnDiv" aria-label="Huge"></div></button>
       </div>
 
-      <div class="input-group">
-        <label for="date-input"></label>
-        <input type="datetime-local" id="date-input" value="date" />
-      </div>
 
       <div class="input-group" id="colorButtons">
           <button class="colorBtn" value="0" aria-label="Orange">
@@ -89,12 +86,27 @@
           <button class="colorBtn" value="3" aria-label="Blue">
           <button class="colorBtn" value="4" aria-label="Purple">
       </div>
-      
+
+
+      <div class="datetime-wrapper">
+      <div class="calendar-wrapper">
+        <input type="datetime-local" id="datetime-picker">
+        <img src="images/calendar.svg" alt="calendar" class="calendar-icon">
+      </div>
+
+      <div class="datetime-display">
+        <p id="date-display"></p>
+        <p id="time-display"></p>
+      </div>
+
+    </div>
+
       <div class="btns">
         <button class="add-btn" onclick="ConfirmTaskCreation()" alt="Confirm Task Creation Button">Confirm</button>
       </div>
     </div>
-    
+
+
     
     <script src="matter.js"></script>
     <script src="variables.js"></script>

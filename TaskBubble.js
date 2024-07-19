@@ -39,8 +39,11 @@ class TaskBubble {
         }
 
         if (this.body.date != null) {
-            dateInput.value = this.body.date;
+            let dateTime = this.body.date.split('T');
+            dateDisplay.content = dateTime[0];
+            timeDisplay.content = dateTime[1];
         }
+
         else {
             dateInput.value = null;
         }

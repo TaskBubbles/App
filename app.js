@@ -65,8 +65,10 @@ const sizeButtons = document.querySelectorAll(".sizeBtn")
 const sizeButtonDivs = document.querySelectorAll(".sizeBtnDiv")
 const titleInput = document.getElementById("task-input");
 const colorInput = document.getElementById("color-input");
-const dateInput = document.getElementById("date-input");
 const themeInput = document.getElementById("theme-input");
+const dateInput = document.getElementById('datetime-picker');
+const dateDisplay = document.getElementById('date-display');
+const timeDisplay = document.getElementById('time-display');
 const themeMeta = document.querySelector('meta[name="theme-color"]');
 //#endregion
 
@@ -81,6 +83,11 @@ document.addEventListener("DOMContentLoaded", event => {
   sizeButtons.forEach((btn, i) => {
     sizeButtonDivs[i].style.padding = btn.value * 1.5 + "rem";
     btn.addEventListener("click", SetNewBubbleScale);
+  });
+  dateInput.addEventListener('change', function () {
+    let dateTime = this.value.split("T");
+    dateDisplay.textContent = dateTime[0];
+    timeDisplay.textContent = dateTime[1];
   });
 
   LoadData();
