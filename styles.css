@@ -9,7 +9,7 @@ body {
   touch-action: pan-x pan-y;
   height: 100%;
   background-color: #f0edfc;
-  font-family: "Rubik", sans-serif;
+  font-family: "Poppins", sans-serif;
   overflow: hidden;
 }
 
@@ -51,7 +51,7 @@ body {
   border: 1.5px solid #fffc;
   text-align: center;
   font-size: 2vh;
-  width: 30rem;
+  width: 40rem;
   box-shadow: 1px 3px 5px 0px #0003;
 }
 

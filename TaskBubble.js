@@ -121,10 +121,10 @@ class TaskBubble {
         var context = render.context;
         var pos = this.body.position;
         var area = this.body.area;
-        var fontSize = Math.sqrt(area / this.body.title.length * 0.3);
+        var fontSize = Math.sqrt(area / this.body.title.length * 0.2);
 
         context.fillStyle = '#fff'; // Text color
-        context.font = "500 " + fontSize + "px 'Rubik'"; // Text size and font
+        context.font = "600 " + fontSize + "px Poppins"; // Text size and font
         context.textAlign = 'center';
         context.textBaseline = 'middle';
 
@@ -150,7 +150,6 @@ class TaskBubble {
             let metrics = ctx.measureText(testLine);
             let testWidth = metrics.width;
 
-            // Check if the word itself is wider than the maxWidth
             if (testWidth > maxWidth && n > 0) {
                 lineArray.push([line.trim(), x, y]);
                 y += lineHeight;
@@ -188,11 +187,17 @@ class TaskBubble {
         var area = this.body.area;
         var fontSize = Math.sqrt(area / this.body.date.length * 0.1);
         let pos = { x: this.body.position.x, y: this.body.position.y };
-        context.fillStyle = '#ddd '; // Text color
-        context.font = fontSize + 'px Rubik'; // Text size and font
+        context.fillStyle = '#fff ';
+        context.font = fontSize + 'px Poppins';
         context.textAlign = 'center';
         context.textBaseline = 'top';
-        // Adjust positions based on metrics if necessary
-        context.fillText(this.body.date, pos.x, pos.y + fontSize * 2);
+
+        let text = this.body.date.replaceAll("-", ".");
+        let lines = text.split("T");
+
+        // Draw each line separately
+        for (let i = 0; i < lines.length; i++) {
+            context.fillText(lines[i], pos.x, pos.y + fontSize * 3 + (i * fontSize * 1.2));
+        }
     }
 }
