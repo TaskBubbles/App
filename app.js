@@ -59,21 +59,22 @@ let ClusterScaler = 1;
 //const infoDiv = document.querySelector(".info-div");
 const zoomDiv = document.querySelector(".zoom-div");
 const zoomBtnIcon = document.querySelector(".zoom-btn-icon");
+const closeTaskForm = document.querySelector(".close-task-form");
 const addTaskForm = document.querySelector(".add-task");
 const colorButtons = document.querySelectorAll(".colorBtn")
 const sizeButtons = document.querySelectorAll(".sizeBtn")
 const sizeButtonDivs = document.querySelectorAll(".sizeBtnDiv")
-const titleInput = document.getElementById("task-input");
+const titleInput = document.getElementById("title-input");
 const colorInput = document.getElementById("color-input");
 const themeInput = document.getElementById("theme-input");
 const dateInput = document.getElementById('datetime-picker');
 const dateDisplay = document.getElementById('date-display');
 const timeDisplay = document.getElementById('time-display');
 const themeMeta = document.querySelector('meta[name="theme-color"]');
+const infoContainer = document.getElementById('info-container');
 //#endregion
 
 //START
-
 document.addEventListener("DOMContentLoaded", event => {
   colorButtons.forEach((btn, i) => {
     btn.style.backgroundColor = ColorScheme[i];
@@ -81,7 +82,7 @@ document.addEventListener("DOMContentLoaded", event => {
   });
 
   sizeButtons.forEach((btn, i) => {
-    sizeButtonDivs[i].style.padding = btn.value * 1.5 + "rem";
+    sizeButtonDivs[i].style.padding = btn.value + "rem";
     btn.addEventListener("click", SetNewBubbleScale);
   });
   dateInput.addEventListener('change', function () {
@@ -111,9 +112,13 @@ function ToggleTheme() {
 let editedBubble;
 let isEditing = false;
 
+function ToggleInfoDiv() {
+  infoContainer.classList.toggle("active");
+}
+
 function ToggleTaskForm() {
   addTaskForm.classList.toggle("active");
-
+  closeTaskForm.classList.toggle("active");
   isEditing = !isEditing;
   if (isEditing) {
     World.remove(engine.world, mouseConstraint);

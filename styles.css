@@ -13,6 +13,16 @@ body {
   overflow: hidden;
 }
 
+.close-task-form {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: none;
+}
+
+.close-task-form.active {
+  display: flex;
+}
 .add-task {
   position: fixed;
   display: flex;
@@ -33,45 +43,60 @@ body {
 }
 
 .add-task .heading {
-  font-size: 3vh;
-  margin-bottom: 2vh;
+  font-size: 3rem;
+  margin-bottom: 1vh;
 }
 
 .input-group {
   display: flex;
-  justify-content: center;
+  align-items: center;
 }
 
 .input-group input {
   box-sizing: content-box;
-  padding: 1rem;
-  margin: 2.2rem;
-  border-radius: 5vh;
+  border-radius: 5rem;
   background-color: #fff;
   border: 1.5px solid #fffc;
   text-align: center;
-  font-size: 2vh;
+  font-size: 2rem;
+  margin: 1rem;
   width: 40rem;
   box-shadow: 1px 3px 5px 0px #0003;
 }
 
-.datetime-wrapper {
-  display: flex;
-  align-items: center;
-  font-size: 2rem;
+#title-input {
+  padding: 1rem;
 }
 
-/* Container for the custom input */
-.calendar-wrapper {
-  padding: 3em;
+.circle-button {
+  padding: 2.2rem;
   margin: 1.1rem;
+  width: 2rem;
+  height: 2rem;
   border-radius: 50%;
   border: 1.5px solid #fffc;
   box-shadow: 1px 3px 5px 0px #0003;
-  position: relative;
-  font-size: 1rem;
 }
 
+.buttons-holder {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 42;
+}
+
+.calendar-wrapper {
+  padding: 3rem;
+  position: relative;
+  display: flex;
+  margin-bottom: 0.5rem;
+}
+
+.datetime-display {
+  text-align: center;
+  margin-bottom: 1rem;
+}
 /* Ensure the input field is clickable */
 .calendar-wrapper input[type="datetime-local"] {
   position: absolute;
@@ -94,52 +119,28 @@ body {
   height: 70%;
 }
 
-.colorBtn {
-  padding: 2.2rem;
-  margin: 1.1rem;
-  margin-top: 2rem;
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  border: 1.5px solid #fffc;
-  box-shadow: 1px 3px 5px 0px #0003;
-}
-
 .colorBtn:active {
-  background-color: #fefefe !important;
+  background-color: #eee !important;
 }
 
 .sizeBtn {
-  align-self: center;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2.2rem;
-  margin: 1.1rem;
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  border: 1.5px solid #fffc;
-  box-shadow: 1px 3px 5px 0px #0003;
 }
 
 .sizeBtn:active .sizeBtnDiv {
   background-color: #fefefe;
 }
+
 .sizeBtnDiv {
-  padding: 10px;
   border-radius: 50%;
   background-color: rgb(41, 36, 77);
-}
-.btns {
-  display: flex;
-  justify-content: center;
-  -webkit-tap-highlight-color: transparent;
 }
 
 .btns button {
   padding: 2vh 4vh;
-  margin: 4vh;
+  margin: 2rem;
   border-radius: 500px;
   border: none;
   font-size: 2vh;
@@ -249,39 +250,6 @@ body {
   background-color: rgb(221, 133, 133);
 }
 
-.disclamer {
-  text-align: center;
-  width: 50%;
-  height: 0px;
-}
-a {
-  color: white;
-}
-h3 {
-  height: 0px;
-  line-height: -30px;
-  color: red;
-}
-
-.bottomNav {
-  position: fixed;
-
-  bottom: 0%;
-  font-size: 1.5svh;
-  line-height: 150%;
-  display: flexbox;
-
-  padding: 1.5svh;
-
-  color: #555;
-  pointer-events: none;
-}
-
-.bottomNav a {
-  pointer-events: all;
-  color: #555;
-}
-
 .theme-div {
   position: absolute;
 }
@@ -344,4 +312,57 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+.info-button {
+  position: absolute;
+  left: 0;
+  bottom: 0%;
+  width: 3rem;
+  height: 3rem;
+  font-size: 2rem;
+  font-family: Poppins;
+  font-weight: 600;
+  margin: 2.2rem;
+  border-radius: 100%;
+  cursor: pointer;
+  background-color: #fff;
+  border: 1.5px solid #fffc;
+  box-shadow: 1px 3px 5px 0px #0003;
+  z-index:;
+}
+
+#info-container {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: #fff5;
+  backdrop-filter: blur(5px);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+#info-container.active {
+  display: flex;
+}
+#info-div {
+  background-color: #f0edfc;
+  border: 3px solid #dbd7ed;
+  border-radius: 3rem;
+  box-shadow: 1px 3px 20px 0px #0001;
+  padding: 30px;
+  font-size: 1.5svh;
+  max-width: 90%;
+}
+
+.disclamer {
+  color: #d82137;
+  text-shadow: 1px 3px 5px #0003;
+}
+.info-links {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 5px;
 }
