@@ -45,7 +45,7 @@ body {
 .input-group input {
   box-sizing: content-box;
   padding: 1rem;
-  margin: 0.5rem;
+  margin: 2.2rem;
   border-radius: 5vh;
   background-color: #fff;
   border: 1.5px solid #fffc;
@@ -58,27 +58,28 @@ body {
 .datetime-wrapper {
   display: flex;
   align-items: center;
+  font-size: 2rem;
 }
 
 /* Container for the custom input */
 .calendar-wrapper {
-  padding: 2.2em;
+  padding: 3em;
   margin: 1.1rem;
   border-radius: 50%;
   border: 1.5px solid #fffc;
   box-shadow: 1px 3px 5px 0px #0003;
   position: relative;
+  font-size: 1rem;
 }
 
 /* Ensure the input field is clickable */
 .calendar-wrapper input[type="datetime-local"] {
   position: absolute;
-
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  font-size: 4rem;
+  font-size: 6rem;
   opacity: 0;
   cursor: pointer;
 }
@@ -92,13 +93,6 @@ body {
   width: 70%;
   height: 70%;
 }
-/* #calendarBtn {
-  cursor: pointer;
-  font-size: 4rem;
-  background-color: transparent;
-  border: none;
-  text-shadow: 1px 3px 5px #0003;
-} */
 
 .colorBtn {
   padding: 2.2rem;
