@@ -121,26 +121,78 @@ class TaskBubble {
         var context = render.context;
         var pos = this.body.position;
         var area = this.body.area;
-        var fontSize = Math.sqrt(area / this.body.title.length * 0.6) / 2;
-        context.fillStyle = '#fff '; // Text color
+        var fontSize = Math.sqrt(area / this.body.title.length * 0.3);
+
+        context.fillStyle = '#fff'; // Text color
         context.font = "500 " + fontSize + "px 'Rubik'"; // Text size and font
         context.textAlign = 'center';
         context.textBaseline = 'middle';
-        context.fillText(this.body.title, pos.x, pos.y);
+
+        let wrappedText = this.WrapText(context, this.body.title, pos.x, pos.y, Math.sqrt(this.body.area), fontSize, 3);
+        let textHeight = wrappedText.length * fontSize;
+        let startY = pos.y - textHeight / 2 + fontSize / 2; // Adjust startY to center text vertically
+
+        wrappedText.forEach(function (item, index) {
+            context.fillText(item[0], item[1], startY + index * fontSize);
+        });
+    }
+
+    WrapText(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+        let words = text.split(' ');
+        let line = '';
+        let testLine = '';
+        let lineArray = [];
+        let linesCount = 0;
+
+        for (var n = 0; n < words.length; n++) {
+            let word = words[n];
+            testLine = line + word + ' ';
+            let metrics = ctx.measureText(testLine);
+            let testWidth = metrics.width;
+
+            // Check if the word itself is wider than the maxWidth
+            if (testWidth > maxWidth && n > 0) {
+                lineArray.push([line.trim(), x, y]);
+                y += lineHeight;
+                line = word + ' ';
+                linesCount++;
+
+                if (linesCount >= maxLines - 1) {
+                    line += words.slice(n + 1).join(' ');
+                    lineArray.push([line.trim(), x, y]);
+                    break;
+                }
+            } else {
+                line += word + ' ';
+            }
+
+            if (n === words.length - 1) {
+                if (linesCount < maxLines - 1) {
+                    lineArray.push([line.trim(), x, y]);
+                } else if (linesCount === maxLines - 1 && lineArray.length < maxLines) {
+                    lineArray.push([line.trim(), x, y]);
+                }
+            }
+        }
+
+        // Ensure no duplication of the last line
+        if (linesCount >= maxLines && line.trim().length > 0) {
+            lineArray[maxLines - 1][0] += ' ' + line.trim();
+        }
+
+        return lineArray;
     }
 
     DrawDate() {
         var context = render.context;
         var area = this.body.area;
-        var fontSize = Math.sqrt(Math.sqrt(area) * 1.2) * 0.8;
-        let adjustedFontSize = fontSize * rendererScale;
-        let pos = { x: this.body.position.x * rendererScale, y: this.body.position.y * rendererScale };
+        var fontSize = Math.sqrt(area / this.body.date.length * 0.1);
+        let pos = { x: this.body.position.x, y: this.body.position.y };
         context.fillStyle = '#ddd '; // Text color
-        context.font = adjustedFontSize + 'px Rubik'; // Text size and font
+        context.font = fontSize + 'px Rubik'; // Text size and font
         context.textAlign = 'center';
-        context.textBaseline = 'middle';
+        context.textBaseline = 'top';
         // Adjust positions based on metrics if necessary
-        context.fillText(this.body.date, pos.x, pos.y + adjustedFontSize * 2);
+        context.fillText(this.body.date, pos.x, pos.y + fontSize * 2);
     }
-
 }

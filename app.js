@@ -53,8 +53,6 @@ let addTaskButton = new AddTaskButton();
 let bubbleStack = Composites.stack();
 //#endregion
 
-let rendererScale = 1;
-
 let ClusterScaler = 1;
 
 //#region Refrence Html Elements
