@@ -51,12 +51,9 @@ class AddTaskButton {
 
         // Measure the text for vertical centering
         var metrics = context.measureText('+');
-        var textHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
+        var textHeight = metrics.actualBoundingBoxAscent - metrics.actualBoundingBoxDescent;
 
         // Draw the plus sign centered in the circle
-        context.fillText('+', finalPosX, finalPosY + (metrics.actualBoundingBoxAscent - metrics.actualBoundingBoxDescent) / 2);
+        context.fillText('+', finalPosX, finalPosY + textHeight / 2);
     }
-
-
-
 }
