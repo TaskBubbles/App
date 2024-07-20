@@ -56,9 +56,6 @@ let bubbleStack = Composites.stack();
 let ClusterScaler = 1;
 
 //#region Refrence Html Elements
-//const infoDiv = document.querySelector(".info-div");
-const zoomDiv = document.querySelector(".zoom-div");
-const zoomBtnIcon = document.querySelector(".zoom-btn-icon");
 const closeTaskForm = document.querySelector(".close-task-form");
 const addTaskForm = document.querySelector(".add-task");
 const colorButtons = document.querySelectorAll(".colorBtn")
@@ -100,8 +97,6 @@ document.addEventListener("DOMContentLoaded", event => {
 });
 
 
-
-
 let darkTheme = false;
 function ToggleTheme() {
   darkTheme = !darkTheme;
@@ -109,11 +104,14 @@ function ToggleTheme() {
     render.options.background = ColorScheme[5];
     themeMeta.setAttribute('content', ColorScheme[5]);
     autoscaleIcon.style.fill = ColorScheme[6];
+    autoscaleIcon.style.filter = 'drop-shadow(1px 3px 5px rgb(0, 0, 0, 0.2))';
+
   }
   else {
     render.options.background = ColorScheme[6];
     themeMeta.setAttribute('content', ColorScheme[6]);
     autoscaleIcon.style.fill = ColorScheme[5];
+    autoscaleIcon.style.filter = 'drop-shadow(1px 3px 5px rgb(1, 1, 1, 0.2))';
   }
   SaveTheme();
 }
@@ -276,6 +274,11 @@ function ScaleBoard() {
 
   // Only scale the board if the current bounds match the initial bounds
   if (currentWidth === initialBounds.width && currentHeight === initialBounds.height) {
+
+    if (autoscaleIcon.classList.contains("scale-pulse")) {
+      autoscaleIcon.classList.remove("scale-pulse")
+    }
+
     let scale = Matter.Common.clamp(1 + StackToScreenDifference() * 0.00005, 0.1, 1.9);
 
     if (bubbleStack.bodies.length <= 0) {
@@ -287,6 +290,9 @@ function ScaleBoard() {
       });
       ClusterScaler *= scale;
     }
+  }
+  else if (!autoscaleIcon.classList.contains("scale-pulse")) {
+    autoscaleIcon.classList.add("scale-pulse")
   }
 }
 
