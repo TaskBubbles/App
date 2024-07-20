@@ -91,6 +91,7 @@ class TaskBubble {
 
     EndPress() {
         clearInterval(this.outlineInterval);
+        this.ClearOutline();
         Body.setVelocity(this.body, { x: 0, y: 0 });
         Body.setAngularVelocity(this.body, 0);
     }

@@ -106,8 +106,15 @@
     render.canvas.addEventListener('touchstart', function (event) {
         mouseConstraint.constraint.stiffness = 0;
         World.remove(engine.world, mouseConstraint);
+        bubbleStack.bodies.forEach(body => {
+            body.taskBubble.EndPress();
+        });
         if (event.touches.length >= 2) {
-            mouseTarget = null;
+
+            if (mouseTarget != null) {
+                mouseTarget = null;
+            }
+
             panning = true;
             if (mouseConstraint.body != null) {
                 if (mouseConstraint.body.taskBubble != null) {
