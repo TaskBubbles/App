@@ -62,6 +62,21 @@
         <p>This app has been a passion project of mine for the past year. I'm grateful that someone like you finds value in it! </p>
         <div class="info-links">        
           <a href="https://x.com/GuyEkstein" target=”_blank”>Follow</a> 
+          <div id="donate-button-container">
+            <div id="donate-button"></div>
+            <script src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js" charset="UTF-8"></script>
+            <script>
+            PayPal.Donation.Button({
+            env:'production',
+            hosted_button_id:'3CZUAXXKRU6YN',
+            image: {
+            src:'https://www.paypalobjects.com/en_US/IL/i/btn/btn_donateCC_LG.gif',
+            alt:'Donate with PayPal button',
+            title:'PayPal - The safer, easier way to pay online!',
+            }
+            }).render('#donate-button');
+            </script>
+            </div>
           <a href="mailto:taskbubblesapp@gmail.com" target=”_blank”>Contact</a>
         </div>
 

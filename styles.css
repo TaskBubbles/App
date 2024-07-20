@@ -359,8 +359,8 @@ input:checked + .slider:before {
 
 .disclamer {
   color: #d82137;
-  text-shadow: 1px 3px 5px #0003;
 }
+
 .info-links {
   display: flex;
   justify-content: space-evenly;
