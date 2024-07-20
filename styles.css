@@ -24,6 +24,7 @@ body {
 .close-task-form.active {
   display: flex;
 }
+
 .add-task {
   position: fixed;
   display: flex;
@@ -185,6 +186,7 @@ body {
 #autoscaling-icon {
   cursor: pointer;
   filter: drop-shadow(1px 3px 5px rgba(0, 0, 0, 0.2));
+  transition: 0.3s;
 }
 .scale-pulse {
   animation: scalePulse 1.5s infinite ease-in-out;
@@ -230,7 +232,7 @@ body {
   right: 0;
   bottom: 0;
   background-color: #110d1c;
-  -webkit-transition: 0.4s;
+  -webkit-transition: 0.3s;
   transition: 0.4s;
 }
 

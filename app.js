@@ -32,6 +32,8 @@ let render = Render.create({
   },
 });
 
+render.canvas.style = "transition: 0.3s";
+
 
 //#region Mouse Setup
 let mouse = Mouse.create(render.canvas);
