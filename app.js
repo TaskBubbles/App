@@ -32,7 +32,7 @@ let render = Render.create({
   },
 });
 
-render.canvas.style = "transition: 0.3s";
+render.canvas.style = "transition: 0.3s; -webkit-transition: transparent;";
 
 
 //#region Mouse Setup
