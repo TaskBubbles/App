@@ -105,17 +105,30 @@
     // Handle touch events for pinch-to-zoom and two-finger drag-to-pan
     render.canvas.addEventListener('touchstart', function (event) {
         mouseConstraint.constraint.stiffness = 0;
+        World.remove(engine.world, mouseConstraint);
         if (event.touches.length >= 2) {
+            panning = true;
+            if (mouseConstraint.body != null) {
+                if (mouseConstraint.body.taskBubble != null) {
+                    mouseConstraint.body.taskBubble.EndPress();
+                }
+            }
             pinchStartDistance = getPinchDistance(event.touches);
             lastMousePosition = { x: (event.touches[0].clientX + event.touches[1].clientX) / 2, y: (event.touches[0].clientY + event.touches[1].clientY) / 2 };
         }
         else {
             mouseConstraint.constraint.stiffness = 1;
+            World.add(engine.world, mouseConstraint);
         }
     });
 
     render.canvas.addEventListener('touchmove', function (event) {
         if (event.touches.length >= 2) {
+            if (mouseConstraint.body != null) {
+                if (mouseConstraint.body.taskBubble != null) {
+                    mouseConstraint.body.taskBubble.EndPress();
+                }
+            }
             event.preventDefault();
             const pinchDistance = getPinchDistance(event.touches);
             const scaleFactor = pinchStartDistance / pinchDistance; // Reverse the scale factor calculation
@@ -152,6 +165,7 @@
             pinchStartDistance = 0;
             isDragging = false;
             panning = false;
+            World.add(engine.world, mouseConstraint);
             mouseConstraint.constraint.stiffness = 1;
         }
     });
