@@ -72,10 +72,14 @@ const dateDisplay = document.getElementById('date-display');
 const timeDisplay = document.getElementById('time-display');
 const themeMeta = document.querySelector('meta[name="theme-color"]');
 const infoContainer = document.getElementById('info-container');
+const autoscaleIcon = document.getElementById('autoscaling-icon');
 //#endregion
 
 //START
 document.addEventListener("DOMContentLoaded", event => {
+
+  autoscaleIcon.style.fill = ColorScheme[6];
+
   colorButtons.forEach((btn, i) => {
     btn.style.backgroundColor = ColorScheme[i];
     btn.addEventListener("click", SetNewBubbleColor);
@@ -85,6 +89,7 @@ document.addEventListener("DOMContentLoaded", event => {
     sizeButtonDivs[i].style.padding = btn.value + "rem";
     btn.addEventListener("click", SetNewBubbleScale);
   });
+
   dateInput.addEventListener('change', function () {
     let dateTime = this.value.split("T");
     dateDisplay.textContent = dateTime[0];
@@ -94,16 +99,21 @@ document.addEventListener("DOMContentLoaded", event => {
   LoadData();
 });
 
+
+
+
 let darkTheme = false;
 function ToggleTheme() {
   darkTheme = !darkTheme;
   if (!darkTheme) {
-    render.options.background = "#f0edfc";
-    themeMeta.setAttribute('content', "#f0edfc");
+    render.options.background = ColorScheme[5];
+    themeMeta.setAttribute('content', ColorScheme[5]);
+    autoscaleIcon.style.fill = ColorScheme[6];
   }
   else {
-    render.options.background = "#110d1c";
-    themeMeta.setAttribute('content', "#110d1c");
+    render.options.background = ColorScheme[6];
+    themeMeta.setAttribute('content', ColorScheme[6]);
+    autoscaleIcon.style.fill = ColorScheme[5];
   }
   SaveTheme();
 }

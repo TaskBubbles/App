@@ -175,12 +175,13 @@ body {
   position: absolute;
   right: 0;
   bottom: 0;
-  padding: 50px;
 }
 .autoscaling-input {
   background: none;
   border: none;
+  padding: 50px;
 }
+
 .theme-div {
   position: absolute;
 }
