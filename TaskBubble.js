@@ -1,5 +1,5 @@
 class TaskBubble {
-    constructor(position, title = defaultTaskTitle, date, color = ColorScheme[Math.floor(Math.random() * ColorScheme.length)], scale = 1) {
+    constructor(position, title = defaultTaskTitle, date = '', color = ColorScheme[Math.floor(Math.random() * ColorScheme.length)], scale = 1) {
         let pos = position == null ? editPosition : position;
         this.body = Bodies.circle(pos.x, pos.y, defaultBubbleSize, {
             friction: 5,
@@ -38,20 +38,30 @@ class TaskBubble {
             titleInput.value = null;
         }
 
-        if (this.body.date != null) {
-            let dateTime = this.body.date.split('T');
-            dateDisplay.content = dateTime[0];
-            timeDisplay.content = dateTime[1];
+
+
+        if (this.body.date != '') {
+            let d = this.body.date;
+            let text = d.replaceAll("-", ".");
+            let lines = text.split("T");
+            dateInput.value = d;
+            dateDisplay.innerHTML = lines[0];
+            timeDisplay.innerHTML = lines[1];
+        }
+        else {
+            dateInput.value = '';
+            dateDisplay.innerHTML = '';
+            timeDisplay.innerHTML = '';
         }
 
-        else {
-            dateInput.value = null;
-        }
+
+
         editedBubble = this;
         this.body.isStatic = true;
         this.EndPress();
         this.editInterval = setInterval(() => {
             Body.setPosition(this.body, editPosition);
+            this.UpdateAttributes();
         }, 100);
     }
 
@@ -109,6 +119,7 @@ class TaskBubble {
         }
 
         this.body.date = dateInput.value;
+
     }
 
     SetColor(color) {
@@ -186,6 +197,7 @@ class TaskBubble {
     }
 
     DrawDate() {
+        if (this.body.date.length == '') return;
         var context = render.context;
         var area = this.body.area;
         var fontSize = Math.sqrt(area / this.body.date.length * 0.1);
@@ -194,10 +206,8 @@ class TaskBubble {
         context.font = fontSize + 'px Poppins';
         context.textAlign = 'center';
         context.textBaseline = 'top';
-
         let text = this.body.date.replaceAll("-", ".");
         let lines = text.split("T");
-
         // Draw each line separately
         for (let i = 0; i < lines.length; i++) {
             context.fillText(lines[i], pos.x, pos.y + fontSize * 3 + (i * fontSize * 1.2));

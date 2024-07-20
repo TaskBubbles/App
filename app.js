@@ -243,10 +243,6 @@ Events.on(engine, "beforeUpdate", function () {
 
   SetBubblesAttraction()
 
-  if (editedBubble != null) {
-    editedBubble.UpdateAttributes();
-  }
-
   if (mouseTarget != null && bubbleStack.bodies.includes(mouseTarget) && Vector.magnitude(Vector.sub(startMousePos, mouse.position)) >= cancelMovementBuffer) {
     {
       mouseTarget.taskBubble.ClearOutline();
