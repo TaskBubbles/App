@@ -1,6 +1,6 @@
 class AddTaskButton {
     constructor() {
-        this.body = Bodies.circle(this.startPos.x, this.startPos.y, window.innerWidth * 0.02 + window.innerHeight * 0.03,
+        this.body = Bodies.circle(this.startPos.x, this.startPos.y, window.innerWidth * 0.025 + window.innerHeight * 0.025,
             {
                 isStatic: true,
                 render: {
@@ -53,6 +53,6 @@ class AddTaskButton {
         var metrics = context.measureText('+');
 
         // Draw the plus sign centered in the circle
-        context.fillText('+', finalPosX, finalPosY + metrics.actualBoundingBoxDescent / 2);
+        context.fillText('+', finalPosX, finalPosY + metrics.actualBoundingBoxAscent / 4);
     }
 }
