@@ -207,9 +207,11 @@ Events.on(mouseConstraint, "mousedown", function (e) {
 
 
 Events.on(mouseConstraint, "mouseup", function (e) {
+
+  if (panning) return;
   if (addTaskButton.Pressed) addTaskButton.EndPress();
 
-  if (editedBubble != null || panning) {
+  if (editedBubble != null) {
     return;
   }
 

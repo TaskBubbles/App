@@ -107,6 +107,7 @@
         mouseConstraint.constraint.stiffness = 0;
         World.remove(engine.world, mouseConstraint);
         if (event.touches.length >= 2) {
+            mouseTarget = null;
             panning = true;
             if (mouseConstraint.body != null) {
                 if (mouseConstraint.body.taskBubble != null) {
@@ -164,9 +165,9 @@
         if (event.touches.length == 0) {
             pinchStartDistance = 0;
             isDragging = false;
-            panning = false;
             World.add(engine.world, mouseConstraint);
             mouseConstraint.constraint.stiffness = 1;
+            panning = false;
         }
     });
 
