@@ -39,6 +39,7 @@ class AddTaskButton {
         context.fillStyle = '#fff';
         context.font = fontSize + 'px Arial';
         context.textAlign = 'center';
+        context.textBaseline = 'middle';
 
         // Adjust position to account for zoom and pan
         const adjustedPosX = pos.x - render.bounds.min.x;
@@ -53,7 +54,7 @@ class AddTaskButton {
         var textHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
 
         // Draw the plus sign centered in the circle
-        context.fillText('+', finalPosX, finalPosY + textHeight / 6);
+        context.fillText('+', finalPosX, finalPosY + (metrics.actualBoundingBoxAscent - metrics.actualBoundingBoxDescent) / 2);
     }
 
 
