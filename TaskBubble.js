@@ -1,5 +1,5 @@
 class TaskBubble {
-    constructor(position, title = defaultTaskTitle, date = '', color = ColorScheme[Math.floor(Math.random() * ColorScheme.length)], scale = 1) {
+    constructor(position, title = defaultTaskTitle, date = '', color = ColorScheme[Math.floor(Math.random() * 5)], scale = 1) {
         let pos = position == null ? editPosition : position;
         this.body = Bodies.circle(pos.x, pos.y, defaultBubbleSize, {
             friction: 5,
