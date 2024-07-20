@@ -135,7 +135,7 @@ class TaskBubble {
         var context = render.context;
         var pos = this.body.position;
         var area = this.body.area;
-        var fontSize = Math.sqrt(area / this.body.title.length * 0.2);
+        var fontSize = Math.sqrt(area / this.body.title.length) * 0.5;
 
         context.fillStyle = '#fff'; // Text color
         context.font = "600 " + fontSize + "px Poppins"; // Text size and font
