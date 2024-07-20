@@ -31,13 +31,14 @@ class TaskBubble {
     }
 
     StartModify() {
+        resetZoom();
+
         if (this.body.title != defaultTaskTitle) {
             titleInput.value = this.body.title;
         }
         else {
             titleInput.value = null;
         }
-
 
 
         if (this.body.date != '') {
