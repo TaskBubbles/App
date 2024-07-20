@@ -13,7 +13,6 @@ class AddTaskButton {
     };
 
     startPos = { x: render.bounds.max.x / 2, y: render.bounds.max.y / 2 };
-    editPos = { x: render.bounds.max.x / 2, y: render.bounds.max.y / 1.5 };
 
     StartPress() {
         this.Pressed = true;

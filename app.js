@@ -318,7 +318,7 @@ function SetBubblesAttraction() {
 
 
 Events.on(render, 'afterRender', function () {
-  //ScaleRenderer(1, true);
+
   addTaskButton.DrawPlus();
 
   bubbleStack.bodies.forEach(bubble => {
