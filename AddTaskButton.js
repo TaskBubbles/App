@@ -1,8 +1,6 @@
-
 class AddTaskButton {
     constructor() {
-        this.body = Bodies.circle(this.startPos.x, this.startPos.y,
-            defaultBubbleSize,
+        this.body = Bodies.circle(this.startPos.x, this.startPos.y, window.innerWidth * 0.02 + window.innerHeight * 0.03,
             {
                 isStatic: true,
                 render: {
@@ -11,7 +9,6 @@ class AddTaskButton {
             }
         );
         this.body.taskBubble = this;
-        //this.body.collisionFilter.group = -1;
         this.Pressed = false;
     };
 
@@ -31,13 +28,31 @@ class AddTaskButton {
     DrawPlus() {
         var context = render.context;
         var pos = this.body.position;
-        var area = this.body.area;
-        var fontSize = 80;
+
+        // Calculate the current scale factor
+        const scaleX = (initialBounds.width) / (render.bounds.max.x - render.bounds.min.x);
+        const scaleY = (initialBounds.height) / (render.bounds.max.y - render.bounds.min.y);
+        const scale = Math.min(scaleX, scaleY);
+
+        // Adjust the font size based on the current scale
+        var fontSize = 80 * scale;
         context.fillStyle = '#fff ';
         context.font = fontSize + 'px Arial';
         context.textAlign = 'center';
-        context.textBaseline = 'bottom';
+        context.textBaseline = 'middle';
+
+        // Adjust position to account for zoom and pan
+        const adjustedPosX = pos.x - render.bounds.min.x;
+        const adjustedPosY = pos.y - render.bounds.min.y;
+
+        // Apply the scale factor
+        const finalPosX = adjustedPosX * scale;
+        const finalPosY = adjustedPosY * scale;
+
+        // Measure the text width for vertical centering
         var metrics = context.measureText('+');
-        context.fillText('+', pos.x, pos.y + metrics.width);
+
+        // Draw the plus sign centered in the circle
+        context.fillText('+', finalPosX, finalPosY + metrics.actualBoundingBoxDescent / 2);
     }
 }

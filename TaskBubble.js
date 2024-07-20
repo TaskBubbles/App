@@ -135,21 +135,32 @@ class TaskBubble {
         var context = render.context;
         var pos = this.body.position;
         var area = this.body.area;
-        var fontSize = Math.sqrt(area / this.body.title.length) * 0.5;
+
+        // Calculate the current scale factor
+        const scaleX = (initialBounds.width) / (render.bounds.max.x - render.bounds.min.x);
+        const scaleY = (initialBounds.height) / (render.bounds.max.y - render.bounds.min.y);
+        const scale = Math.min(scaleX, scaleY);
+
+        var fontSize = Math.sqrt(area / this.body.title.length) * 0.5 * scale;
 
         context.fillStyle = '#fff'; // Text color
         context.font = "600 " + fontSize + "px Poppins"; // Text size and font
         context.textAlign = 'center';
         context.textBaseline = 'middle';
 
-        let wrappedText = this.WrapText(context, this.body.title, pos.x, pos.y, Math.sqrt(this.body.area), fontSize, 3);
+        // Adjust position to account for zoom and pan
+        const adjustedPosX = (pos.x - render.bounds.min.x) * scale;
+        const adjustedPosY = (pos.y - render.bounds.min.y) * scale;
+
+        let wrappedText = this.WrapText(context, this.body.title, adjustedPosX, adjustedPosY, Math.sqrt(this.body.area) * scale, fontSize, 3);
         let textHeight = wrappedText.length * fontSize;
-        let startY = pos.y - textHeight / 2 + fontSize / 2; // Adjust startY to center text vertically
+        let startY = adjustedPosY - textHeight / 2 + fontSize / 2; // Adjust startY to center text vertically
 
         wrappedText.forEach(function (item, index) {
             context.fillText(item[0], item[1], startY + index * fontSize);
         });
     }
+
 
     WrapText(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
         let words = text.split(' ');
@@ -200,17 +211,29 @@ class TaskBubble {
         if (this.body.date.length == '') return;
         var context = render.context;
         var area = this.body.area;
-        var fontSize = Math.sqrt(area / this.body.date.length * 0.1);
+
+        // Calculate the current scale factor
+        const scaleX = (initialBounds.width) / (render.bounds.max.x - render.bounds.min.x);
+        const scaleY = (initialBounds.height) / (render.bounds.max.y - render.bounds.min.y);
+        const scale = Math.min(scaleX, scaleY);
+
+        var fontSize = Math.sqrt(area / this.body.date.length * 0.1) * scale;
         let pos = { x: this.body.position.x, y: this.body.position.y };
-        context.fillStyle = '#fff ';
+
+        context.fillStyle = '#fff';
         context.font = fontSize + 'px Poppins';
         context.textAlign = 'center';
         context.textBaseline = 'top';
+
+        // Adjust position to account for zoom and pan
+        const adjustedPosX = (pos.x - render.bounds.min.x) * scale;
+        const adjustedPosY = (pos.y - render.bounds.min.y) * scale;
+
         let text = this.body.date.replaceAll("-", ".");
         let lines = text.split("T");
         // Draw each line separately
         for (let i = 0; i < lines.length; i++) {
-            context.fillText(lines[i], pos.x, pos.y + fontSize * 3 + (i * fontSize * 1.2));
+            context.fillText(lines[i], adjustedPosX, adjustedPosY + fontSize * 3 + (i * fontSize * 1.2));
         }
     }
 }

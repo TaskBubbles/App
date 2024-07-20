@@ -162,9 +162,10 @@ function ConfirmTaskCreation() {
 let mouseTarget;
 let lastMouseDownTime = 0;
 let startMousePos = { x: mouseConstraint.mouse.position.x, y: mouseConstraint.mouse.position.y };
+let panning = false;
 
 Events.on(mouseConstraint, "mousedown", function (e) {
-
+  if (e.mouse.button != '' || e.touch || panning) return;
   mouseDown = true;
   lastMouseDownTime = engine.timing.timestamp;
 
@@ -198,7 +199,7 @@ Events.on(mouseConstraint, "mousedown", function (e) {
 Events.on(mouseConstraint, "mouseup", function (e) {
   if (addTaskButton.Pressed) addTaskButton.EndPress();
 
-  if (editedBubble != null) {
+  if (editedBubble != null || panning) {
     return;
   }
 
@@ -251,26 +252,35 @@ Events.on(engine, "beforeUpdate", function () {
 });
 
 //#region GlobalScaling
+// Ensure initial bounds are accessible in your main script
+const initialBounds = {
+  min: { x: render.bounds.min.x, y: render.bounds.min.y },
+  max: { x: render.bounds.max.x, y: render.bounds.max.y },
+  width: render.bounds.max.x - render.bounds.min.x,
+  height: render.bounds.max.y - render.bounds.min.y
+};
+
 function ScaleBoard() {
+  const currentWidth = render.bounds.max.x - render.bounds.min.x;
+  const currentHeight = render.bounds.max.y - render.bounds.min.y;
 
-  let scale = Matter.Common.clamp(1 + StackToScreenDifference() * 0.00005, 0.1, 1.9);
+  // Only scale the board if the current bounds match the initial bounds
+  if (currentWidth === initialBounds.width && currentHeight === initialBounds.height) {
+    let scale = Matter.Common.clamp(1 + StackToScreenDifference() * 0.00005, 0.1, 1.9);
 
-  if (bubbleStack.bodies.length <= 0) {
-    ClusterScaler = 1;
-  }
-
-  else {
-    if (ClusterScaler < 0.4 && scale <= 1) return;
-    bubbleStack.bodies.forEach(bubble => {
-      Body.scale(bubble, scale, scale, bubble.position);
-    });
-    ClusterScaler *= scale;
-
+    if (bubbleStack.bodies.length <= 0) {
+      ClusterScaler = 1;
+    } else {
+      if (ClusterScaler < 0.1 && scale <= 1) return;
+      bubbleStack.bodies.forEach(bubble => {
+        Body.scale(bubble, scale, scale, bubble.position);
+      });
+      ClusterScaler *= scale;
+    }
   }
 }
 
 function StackToScreenDifference() {
-
   let stackBounds = Composite.bounds(bubbleStack);
   let xL = stackBounds.min.x;
   let xR = render.bounds.max.x - stackBounds.max.x;
@@ -279,6 +289,7 @@ function StackToScreenDifference() {
   let padding = 100;
   return Math.min(xL, xR, yL, yR) - padding;
 }
+
 
 function SetBubblesAttraction() {
   bubbleStack.bodies.forEach(bubble => {
