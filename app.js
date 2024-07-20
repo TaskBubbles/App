@@ -252,21 +252,6 @@ Events.on(engine, "beforeUpdate", function () {
 
 //#region GlobalScaling
 function ScaleBoard() {
-  let disableScaling = false;
-
-  if (bubbleStack.bodies.length < 1) {
-    disableScaling = true;
-  }
-  else {
-    bubbleStack.bodies.forEach((bubble) => {
-      if (!Bounds.contains(render.bounds, bubble.position)) {
-        disableScaling = true;
-      }
-    });
-  }
-
-  if (disableScaling) return;
-
 
   let scale = Matter.Common.clamp(1 + StackToScreenDifference() * 0.00005, 0.1, 1.9);
 
@@ -275,10 +260,12 @@ function ScaleBoard() {
   }
 
   else {
+    if (ClusterScaler < 0.4 && scale <= 1) return;
     bubbleStack.bodies.forEach(bubble => {
       Body.scale(bubble, scale, scale, bubble.position);
     });
     ClusterScaler *= scale;
+
   }
 }
 
@@ -289,8 +276,8 @@ function StackToScreenDifference() {
   let xR = render.bounds.max.x - stackBounds.max.x;
   let yL = stackBounds.min.y;
   let yR = render.bounds.max.y - stackBounds.max.y;
-
-  return Math.min(xL, xR, yL, yR) - 100;
+  let padding = 100;
+  return Math.min(xL, xR, yL, yR) - padding;
 }
 
 function SetBubblesAttraction() {
