@@ -254,8 +254,10 @@ Events.on(engine, "beforeUpdate", function () {
   ScaleBoard();
 
   SetBubblesAttraction()
-
-  if (mouseTarget != null && bubbleStack.bodies.includes(mouseTarget) && Vector.magnitude(Vector.sub(startMousePos, mouse.position)) >= cancelMovementBuffer) {
+  const scaleX = (initialBounds.width) / (render.bounds.max.x - render.bounds.min.x);
+  const scaleY = (initialBounds.height) / (render.bounds.max.y - render.bounds.min.y);
+  const scale = Math.min(scaleX, scaleY);
+  if (mouseTarget != null && bubbleStack.bodies.includes(mouseTarget) && Vector.magnitude(Vector.sub(startMousePos, mouse.position)) >= cancelMovementBuffer / scale) {
     {
       mouseTarget.taskBubble.EndPress();
       mouseTarget = null;
