@@ -257,7 +257,8 @@ Events.on(engine, "beforeUpdate", function () {
 
   if (mouseTarget != null && bubbleStack.bodies.includes(mouseTarget) && Vector.magnitude(Vector.sub(startMousePos, mouse.position)) >= cancelMovementBuffer) {
     {
-      mouseTarget.taskBubble.ClearOutline();
+      mouseTarget.taskBubble.EndPress();
+      mouseTarget = null;
     }
   }
 });
