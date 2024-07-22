@@ -28,7 +28,7 @@ let render = Render.create({
     wireframes: false,
     width: window.innerWidth,
     height: window.innerHeight,
-    background: '#f0edfc',
+    background: ColorScheme[5],
   },
 });
 
