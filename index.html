@@ -150,18 +150,7 @@
       </div>
     </div>
 
-    <button id="vibrateBtn">Vibrate</button>
-
-    <script>
-      document.getElementById('vibrateBtn').addEventListener('click', () => {
-        if ("vibrate" in navigator) {
-          navigator.vibrate(200);
-          console.log("Vibration triggered!");
-        } else {
-          console.log("Vibration API not supported on this device.");
-        }
-      });
-    </script>
+    <button id="vibrateBtn" onclick="navigator.vibrate([200, 100, 300]);">Vibrate</button>
     
     <script src="matter.js"></script>
 

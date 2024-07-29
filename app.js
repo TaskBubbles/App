@@ -168,7 +168,6 @@ function ConfirmTaskCreation() {
 }
 
 function CancelTaskCreation() {
-  navigator.vibrate([200, 100, 200, 100, 200]);
   ToggleTaskForm();
   editedBubble.DeleteBubble();
 }
