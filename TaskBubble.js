@@ -102,10 +102,70 @@ class TaskBubble {
 
     PopBubble() {
         PlayPopSound();
+        this.playLottieAnimation();
+
         Composite.remove(bubbleStack, [this.body]);
         SaveData();
         Composite.remove(engine.world, [this.body]);
 
+    }
+    playLottieAnimation() {
+        const { x, y } = this.body.position;
+        const animationWidth = 500;
+        const animationHeight = 500;
+
+        // Calculate the current scale factor similar to DrawText
+        const scaleX = (initialBounds.width) / (render.bounds.max.x - render.bounds.min.x);
+        const scaleY = (initialBounds.height) / (render.bounds.max.y - render.bounds.min.y);
+        const scale = Math.min(scaleX, scaleY);
+
+        // Calculate the scaled width and height based on the bubble size and renderer scale
+        const scaledWidth = animationWidth * scale * this.body.scaler * ClusterScaler;
+        const scaledHeight = animationHeight * scale * this.body.scaler * ClusterScaler;
+
+        const animationContainer = document.createElement('div');
+        animationContainer.style.position = 'absolute';
+
+        // Adjust for the canvas offset and scale
+        const adjustedX = (x - render.bounds.min.x) * scale - scaledWidth / 2;
+        const adjustedY = (y - render.bounds.min.y) * scale - scaledHeight / 2;
+
+        animationContainer.style.left = `${adjustedX}px`;
+        animationContainer.style.top = `${adjustedY}px`;
+        animationContainer.style.width = `${scaledWidth}px`;
+        animationContainer.style.height = `${scaledHeight}px`;
+        animationContainer.style.pointerEvents = 'none';
+        document.body.appendChild(animationContainer);
+
+        const bubbleColor = this.body.render.fillStyle;
+
+        const animation = lottie.loadAnimation({
+            container: animationContainer,
+            renderer: 'svg',
+            loop: false,
+            autoplay: false,  // Changed to false, we'll play it manually after modifying
+            path: 'Pop.json',
+            rendererSettings: {
+                preserveAspectRatio: 'xMidYMid slice'
+            }
+        });
+
+        // Update the color of the animation elements
+        animation.addEventListener('DOMLoaded', () => {
+            const svg = animationContainer.querySelector('svg');
+            const paths = svg.querySelectorAll('path');
+
+            paths.forEach(path => {
+                path.style.stroke = bubbleColor;
+            });
+
+            // Play the animation after modifying
+            animation.play();
+        });
+
+        animation.addEventListener('complete', function () {
+            document.body.removeChild(animationContainer);
+        });
     }
 
     DeleteBubble() {
