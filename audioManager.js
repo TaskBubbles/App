@@ -2,7 +2,7 @@ class AudioManager {
   constructor() {
     this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
     this.soundBuffer = null;
-    this.loadSound('Pop Mid.wav');
+    this.loadSound('Pop.wav');
   }
 
   async loadSound(url) {
