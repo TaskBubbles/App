@@ -166,6 +166,11 @@ function ConfirmTaskCreation() {
   ToggleTaskForm();
   editedBubble.FinishModify();
 }
+
+function CancelTaskCreation() {
+  ToggleTaskForm();
+  editedBubble.DeleteBubble();
+}
 //#endregion
 
 //#region Mouse Events

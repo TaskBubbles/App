@@ -25,6 +25,18 @@ body {
   display: flex;
 }
 
+.add-task-backdrop {
+  position: absolute;
+  z-index: -1;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 135%;
+  height: 110%;
+  border-radius: 50% 50% 0 0;
+  background: #fff;
+}
+
 .add-task {
   position: fixed;
   display: flex;
@@ -38,6 +50,7 @@ body {
   height: min;
   padding-bottom: 1rem;
   transition: all 0.3s;
+  padding-bottom: 2rem;
 }
 
 .add-task.active {
@@ -141,11 +154,12 @@ body {
 }
 
 .btns button {
-  padding: 2vh 4vh;
+  padding: 2rem 4rem;
   margin: 2rem;
+  margin-top: 3rem;
   border-radius: 500px;
   border: none;
-  font-size: 2vh;
+  font-size: 2rem;
   font-weight: 600;
   cursor: pointer;
   border: 1.5px solid #fffc;
@@ -161,18 +175,16 @@ body {
   border: 1.5px solid #fffc;
 }
 
-.add-task-backdrop {
-  position: absolute;
-  z-index: -1;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 135%;
-  height: 110%;
-  border-radius: 50% 50% 0 0;
-  background: #fffc;
-  backdrop-filter: blur(10px);
+.btns button.cancel-btn {
+  background-color: #d82137;
+  color: white;
+  border: 1.5px solid #fffc;
 }
+.btns button.cancel-btn:active {
+  background-color: #f04458;
+  border: 1.5px solid #fffc;
+}
+
 .autoscaling-div {
   position: absolute;
   right: 0;

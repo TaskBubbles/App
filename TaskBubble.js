@@ -107,6 +107,13 @@ class TaskBubble {
 
     }
 
+    DeleteBubble() {
+        editedBubble = null;
+        Composite.remove(bubbleStack, [this.body]);
+        SaveData();
+        Composite.remove(engine.world, [this.body]);
+    }
+
     SetScale(scale) {
         Body.scale(this.body, scale / this.body.scaler, scale / this.body.scaler);
         this.body.scaler = scale;
