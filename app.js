@@ -178,7 +178,7 @@ let mouseTarget;
 let lastMouseDownTime = 0;
 let startMousePos = { x: mouseConstraint.mouse.position.x, y: mouseConstraint.mouse.position.y };
 let panning = false;
-
+let mouseDown = false;
 Events.on(mouseConstraint, "mousedown", function (e) {
   if (e.mouse.button != '' || e.touch || panning) return;
   mouseDown = true;
@@ -212,7 +212,7 @@ Events.on(mouseConstraint, "mousedown", function (e) {
 
 
 Events.on(mouseConstraint, "mouseup", function (e) {
-
+  mouseDown = false
   if (addTaskButton.Pressed) addTaskButton.EndPress();
 
   if (editedBubble != null) {
@@ -256,7 +256,10 @@ Events.on(mouseConstraint, "mouseup", function (e) {
 //#region UPDATE
 Events.on(engine, "beforeUpdate", function () {
 
-  ScaleBoard();
+  if (!mouseDown) {
+    ScaleBoard();
+  }
+
 
   SetBubblesAttraction()
   const scaleX = (initialBounds.width) / (render.bounds.max.x - render.bounds.min.x);
