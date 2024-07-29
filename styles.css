@@ -340,3 +340,7 @@ input:checked + .slider:before {
 #donate-button {
   width: 12svh;
 }
+#vibrateBtn {
+  position: absolute;
+  padding: 5rem;
+}
