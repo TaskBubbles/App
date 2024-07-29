@@ -101,6 +101,7 @@ class TaskBubble {
     }
 
     PopBubble() {
+        vibrationPattern(1);
         PlayPopSound();
         Composite.remove(bubbleStack, [this.body]);
         SaveData();
