@@ -166,7 +166,7 @@ class TaskBubble {
         let startY = adjustedPosY - textHeight / 2 + fontSize / 2; // Adjust startY to center text vertically
 
         wrappedText.forEach(function (item, index) {
-            context.fillText(item[0], item[1], startY + index * fontSize);
+            context.fillText(item[0], item[1], startY + index * textHeight);
         });
     }
 
