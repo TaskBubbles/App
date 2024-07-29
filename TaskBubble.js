@@ -101,6 +101,7 @@ class TaskBubble {
     }
 
     PopBubble() {
+        PlayPopSound();
         Composite.remove(bubbleStack, [this.body]);
         SaveData();
         Composite.remove(engine.world, [this.body]);
