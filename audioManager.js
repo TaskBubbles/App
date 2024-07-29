@@ -16,14 +16,11 @@ class AudioManager {
       console.error("Sound not loaded yet");
       return;
     }
-
     const source = this.audioContext.createBufferSource();
     source.buffer = this.soundBuffer;
-
     const pitchVariations = [0.8, 1, 2];
     const randomPitch = pitchVariations[Math.floor(Math.random() * pitchVariations.length)];
     source.playbackRate.value = randomPitch;
-
     source.connect(this.audioContext.destination);
     source.start(0);
   }
