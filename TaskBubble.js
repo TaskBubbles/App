@@ -48,7 +48,7 @@ class TaskBubble {
 
     disabledColor() {
         let rgba = hexToRgba(this.body.color);
-        rgba = reduceSaturation(rgba, 0.7);
+
         rgba.a -= 0.3;
 
         return rgbaToHex(rgba.r, rgba.g, rgba.b, rgba.a);
@@ -241,6 +241,13 @@ class TaskBubble {
 
     DeleteBubble() {
         editedBubble = null;
+        if (this.body.completed) {
+            let index = completedBubbles.findIndex(bubble => bubble.identifier == this.body.identifier);
+
+            if (index !== -1) {
+                completedBubbles.splice(index, 1);
+            }
+        }
         Composite.remove(bubbleStack, [this.body]);
         SaveData();
         Composite.remove(engine.world, [this.body]);
