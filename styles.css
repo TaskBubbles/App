@@ -245,14 +245,12 @@ body {
   }
 }
 
-.theme-div {
-  position: absolute;
-}
-
 .eye-div {
   position: absolute;
   right: 0;
   margin: 20px;
+  width: 100px; /* Example default width */
+  height: 100px; /* Example default height */
 }
 
 .eye-switch {
@@ -277,6 +275,10 @@ body {
 }
 .hidden {
   display: none;
+}
+
+.theme-div {
+  position: absolute;
 }
 /* The switch - the box around the slider */
 .theme-switch {
