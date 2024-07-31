@@ -29,6 +29,7 @@ let render = Render.create({
     width: window.innerWidth,
     height: window.innerHeight,
     background: ColorScheme[5],
+
   },
 });
 
@@ -63,6 +64,8 @@ const addTaskForm = document.querySelector(".add-task");
 const colorButtons = document.querySelectorAll(".colorBtn")
 const sizeButtons = document.querySelectorAll(".sizeBtn")
 const sizeButtonDivs = document.querySelectorAll(".sizeBtnDiv")
+const completedCheckmark = document.getElementsByClassName("completed-checkmark");
+const completedInput = document.getElementById("completed-input");
 const titleInput = document.getElementById("title-input");
 const colorInput = document.getElementById("color-input");
 const themeInput = document.getElementById("theme-input");
@@ -72,6 +75,8 @@ const timeDisplay = document.getElementById('time-display');
 const themeMeta = document.querySelector('meta[name="theme-color"]');
 const infoContainer = document.getElementById('info-container');
 const autoscaleIcon = document.getElementById('autoscaling-icon');
+const eyeIcons = document.querySelectorAll('.eyeIcon');
+
 //#endregion
 
 //START
@@ -105,6 +110,7 @@ function ToggleTheme() {
   if (!darkTheme) {
     render.options.background = ColorScheme[5];
     themeMeta.setAttribute('content', ColorScheme[5]);
+    eyeIcons.forEach(eyeIcon => eyeIcon.style.fill = ColorScheme[6]);
     autoscaleIcon.style.fill = ColorScheme[6];
     autoscaleIcon.style.filter = 'drop-shadow(1px 3px 5px rgb(0, 0, 0, 0.2))';
 
@@ -112,12 +118,40 @@ function ToggleTheme() {
   else {
     render.options.background = ColorScheme[6];
     themeMeta.setAttribute('content', ColorScheme[6]);
+    eyeIcons.forEach(eyeIcon => eyeIcon.style.fill = ColorScheme[5]);
     autoscaleIcon.style.fill = ColorScheme[5];
     autoscaleIcon.style.filter = 'drop-shadow(1px 3px 5px rgb(1, 1, 1, 0.2))';
   }
   SaveTheme();
 }
 
+let completedBubbles = [];
+let completedVisible = false;
+function ToggleCompletedTasks(checkbox) {
+
+
+  eyeIcons[0].classList.toggle("hidden");
+  eyeIcons[1].classList.toggle("hidden");
+
+
+  completedVisible = checkbox;
+
+  if (completedVisible) {
+    completedBubbles.forEach(bubble => {
+      if (!bubbleStack.bodies.some(_bubble => _bubble.identifier == bubble.identifier)) {
+        new TaskBubble(RandomPosAroundCenter(1000), bubble.title, bubble.date, bubble.color, bubble.scale, true, bubble.identifier);
+      }
+
+    });
+  }
+  else {
+    let bubblesToRemove = bubbleStack.bodies.filter(bubble => bubble.completed);
+
+    bubblesToRemove.forEach(bubble => {
+      bubble.taskBubble.PopBubble();
+    });
+  }
+}
 //#region Task Editing and Creation
 let editedBubble;
 let isEditing = false;
@@ -149,6 +183,16 @@ function StartEditingTask(bubble) {
   ToggleTaskForm();
 }
 
+function SetBubbleCompleted(completed) {
+
+  for (let checkmark of completedCheckmark) {
+    checkmark.classList.toggle("hidden");
+  }
+
+  editedBubble.SetCompleted(completed);
+
+}
+
 function SetNewBubbleColor() {
   const colorIndex = parseInt(this.value);
   const selectedColor = ColorScheme[colorIndex];
@@ -167,7 +211,7 @@ function ConfirmTaskCreation() {
   editedBubble.FinishModify();
 }
 
-function CancelTaskCreation() {
+function DeleteTask() {
   ToggleTaskForm();
   editedBubble.DeleteBubble();
 }
@@ -178,10 +222,8 @@ let mouseTarget;
 let lastMouseDownTime = 0;
 let startMousePos = { x: mouseConstraint.mouse.position.x, y: mouseConstraint.mouse.position.y };
 let panning = false;
-let mouseDown = false;
 Events.on(mouseConstraint, "mousedown", function (e) {
   if (e.mouse.button != '' || e.touch || panning) return;
-  mouseDown = true;
   lastMouseDownTime = engine.timing.timestamp;
 
   if (editedBubble != null) {
@@ -212,7 +254,6 @@ Events.on(mouseConstraint, "mousedown", function (e) {
 
 
 Events.on(mouseConstraint, "mouseup", function (e) {
-  mouseDown = false
   if (addTaskButton.Pressed) addTaskButton.EndPress();
 
   if (editedBubble != null) {
@@ -253,10 +294,11 @@ Events.on(mouseConstraint, "mouseup", function (e) {
 
 //#region Bubble Simulation
 
+let scaling = true;
 //#region UPDATE
 Events.on(engine, "beforeUpdate", function () {
 
-  if (!mouseDown) {
+  if (scaling) {
     ScaleBoard();
   }
 
@@ -293,7 +335,7 @@ function ScaleBoard() {
       autoscaleIcon.classList.remove("scale-pulse")
     }
 
-    let scale = Matter.Common.clamp(1 + StackToScreenDifference() * 0.00005, 0.1, 1.9);
+    let scale = Matter.Common.clamp(1 + StackToScreenDifference() * 0.00005, 0.01, 1.9);
 
     if (bubbleStack.bodies.length <= 0) {
       ClusterScaler = 1;
@@ -316,7 +358,7 @@ function StackToScreenDifference() {
   let xR = render.bounds.max.x - stackBounds.max.x;
   let yL = stackBounds.min.y;
   let yR = render.bounds.max.y - stackBounds.max.y;
-  let padding = 100;
+  let padding = 0;
   return Math.min(xL, xR, yL, yR) - padding;
 }
 

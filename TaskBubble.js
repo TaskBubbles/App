@@ -1,37 +1,84 @@
 class TaskBubble {
-    constructor(position, title = defaultTaskTitle, date = '', color = ColorScheme[Math.floor(Math.random() * 5)], scale = 1) {
+    constructor(position, title = defaultTaskTitle, date = '', color = ColorScheme[Math.floor(Math.random() * 5)], scale = 1, completed = false, identifier = 0) {
         let pos = position == null ? editPosition : position;
         this.body = Bodies.circle(pos.x, pos.y, defaultBubbleSize, {
             friction: 5,
             frictionAir: 0.05,
             frictionStatic: 10,
             restitution: 0.3,
-            render: {
-                fillStyle: color,
-            },
             collisionFilter: {
                 group: 1,
                 mask: 1,
                 category: 1,
-            }
+            },
         });
+
         this.body.title = title;
         this.body.date = date;
         this.body.taskBubble = this;
         this.body.scaler = scale;
-        this.body.render.strokeStyle = this.brightenColor(color, 10)
+        this.body.completed = completed;
+        this.body.color = color;
+        this.SetColor(color);
+
+        if (identifier == 0) {
+
+            this.body.identifier = idCounter;
+            idCounter++;
+        }
+        else {
+            this.body.identifier = identifier;
+
+        }
+
         Composite.add(engine.world, this.body);
         Composite.move(engine.world, this.body, bubbleStack);
         Body.scale(this.body, ClusterScaler * scale, ClusterScaler * scale);
     }
 
-    brightenColor(color, percent) {
-        let num = parseInt(color.slice(1), 16), amt = Math.round(2.55 * percent);
-        return `#${((1 << 24) + (Math.min(255, (num >> 16) + amt) << 16) + (Math.min(255, (num >> 8 & 0x00FF) + amt) << 8) + Math.min(255, (num & 0x0000FF) + amt)).toString(16).slice(1)}`;
+    brighterColor(percent) {
+        let rgba = hexToRgba(this.body.color);
+
+        rgba.r += percent;
+        rgba.g += percent;
+        rgba.b += percent;
+
+        return rgbaToHex(rgba.r, rgba.g, rgba.b, rgba.a);
+    }
+
+    disabledColor() {
+        let rgba = hexToRgba(this.body.color);
+        rgba = reduceSaturation(rgba, 0.7);
+        rgba.a -= 0.3;
+
+        return rgbaToHex(rgba.r, rgba.g, rgba.b, rgba.a);
+    }
+
+    SetColor(color) {
+        this.body.color = color;
+        this.body.render.fillStyle = this.body.completed ? this.disabledColor() : color;
+        this.body.render.strokeStyle = this.body.completed ? this.disabledColor() : color;
     }
 
     StartModify() {
         resetZoom();
+        scaling = false;
+        for (let checkmark of completedCheckmark) {
+
+            if (this.body.completed) {
+                if (checkmark.classList.contains("hidden")) {
+                    checkmark.classList.remove("hidden");
+                }
+            }
+            else {
+                if (!checkmark.classList.contains("hidden")) {
+                    checkmark.classList.add("hidden");
+
+                }
+            }
+
+            completedInput.checked = this.body.completed
+        }
 
         if (this.body.title != defaultTaskTitle) {
             titleInput.value = this.body.title;
@@ -55,7 +102,9 @@ class TaskBubble {
             timeDisplay.innerHTML = '';
         }
 
+        if (this.body.checked) {
 
+        }
 
         editedBubble = this;
         this.body.isStatic = true;
@@ -67,12 +116,24 @@ class TaskBubble {
     }
 
     FinishModify() {
+        scaling = true;
         this.body.isStatic = false;
         this.EndPress();
         editedBubble = null;
-        this.body.render.strokeStyle = this.brightenColor(this.body.render.fillStyle, 10);
+        this.body.render.strokeStyle = this.body.completed ? this.disabledColor() : this.body.color;
         this.ClearOutline();
         clearInterval(this.editInterval);
+
+        if (this.body.completed) {
+            let bubbleToUpdate = completedBubbles.find(bubble => bubble.identifier == this.body.identifier);
+            if (bubbleToUpdate) {
+                bubbleToUpdate.title = this.body.title;
+                bubbleToUpdate.date = this.body.date;
+                bubbleToUpdate.color = this.body.color;
+                bubbleToUpdate.scale = this.body.scale;
+            }
+
+        }
 
         SaveData();
     }
@@ -82,7 +143,7 @@ class TaskBubble {
         this.outlineInterval = setInterval(() => {
             this.body.render.lineWidth = Math.min(lerp(engine.timing.timestamp, lastMouseDownTime, lastMouseDownTime + popHoldDelay, 0, endWidth), endWidth);
             if (this.body.render.lineWidth >= endWidth) {
-                this.body.render.strokeStyle = this.brightenColor(this.body.render.fillStyle, 50);
+                this.body.render.strokeStyle = this.body.completed ? this.disabledColor() : this.brighterColor(50);
             }
 
         }, engine.timing.lastDelta);
@@ -98,17 +159,29 @@ class TaskBubble {
 
     ClearOutline() {
         this.body.render.lineWidth = 0;
+        this.body.render.strokeStyle = this.body.completed ? this.disabledColor() : this.body.color;
     }
 
     PopBubble() {
         PlayPopSound();
         this.playLottieAnimation();
 
+        if (!this.body.completed) {
+            this.SetCompleted(true);
+        }
+
+        if (completedVisible) {
+
+            new TaskBubble(RandomPosAroundCenter(1000), this.body.title, this.body.date, this.body.color, this.body.scale, this.body.completed, this.body.identifier);
+        }
+
         Composite.remove(bubbleStack, [this.body]);
-        SaveData();
         Composite.remove(engine.world, [this.body]);
 
+        SaveData();
+
     }
+
     playLottieAnimation() {
         const { x, y } = this.body.position;
         const animationWidth = 500;
@@ -137,8 +210,6 @@ class TaskBubble {
         animationContainer.style.pointerEvents = 'none';
         document.body.appendChild(animationContainer);
 
-        const bubbleColor = this.body.render.fillStyle;
-
         const animation = lottie.loadAnimation({
             container: animationContainer,
             renderer: 'svg',
@@ -156,7 +227,7 @@ class TaskBubble {
             const paths = svg.querySelectorAll('path');
 
             paths.forEach(path => {
-                path.style.stroke = bubbleColor;
+                path.style.stroke = this.body.render.fillStyle;
             });
 
             // Play the animation after modifying
@@ -180,6 +251,38 @@ class TaskBubble {
         this.body.scaler = scale;
     }
 
+    SetCompleted(completed) {
+
+        console.log(completed);
+        this.body.completed = completed;
+
+        if (completed) {
+            completedBubbles.push({
+                title: this.body.title,
+                date: this.body.date,
+                color: this.body.color,
+                scale: this.body.scaler,
+                completed: this.body.completed,
+                identifier: this.body.identifier
+            });
+
+            if (editedBubble != null) {
+                ToggleCompletedTasks(true);
+            }
+        }
+        else {
+            let index = completedBubbles.findIndex(bubble => bubble.identifier == this.body.identifier);
+
+            if (index !== -1) {
+                completedBubbles.splice(index, 1);
+            }
+
+        }
+
+        this.SetColor(this.body.color);
+    }
+
+
     UpdateAttributes() {
         if (titleInput.value.length > 0) {
             this.body.title = titleInput.value;
@@ -192,9 +295,6 @@ class TaskBubble {
 
     }
 
-    SetColor(color) {
-        this.body.render.fillStyle = color;
-    }
 
     DrawText() {
         this.DrawTitle();
@@ -222,12 +322,12 @@ class TaskBubble {
         const adjustedPosX = (pos.x - render.bounds.min.x) * scale;
         const adjustedPosY = (pos.y - render.bounds.min.y) * scale;
 
-        let wrappedText = this.WrapText(context, this.body.title, adjustedPosX, adjustedPosY, Math.sqrt(this.body.area) * scale, fontSize, 3);
+        let wrappedText = this.WrapText(context, this.body.title + (this.body.completed ? " ✔" : ""), adjustedPosX, adjustedPosY, Math.sqrt(this.body.area) * scale, fontSize, 3);
         let textHeight = wrappedText.length * fontSize;
         let startY = adjustedPosY - textHeight / 2 + fontSize / 2; // Adjust startY to center text vertically
 
         wrappedText.forEach(function (item, index) {
-            context.fillText(item[0], item[1], startY + index * textHeight);
+            context.fillText(item[0], item[1], startY + index * (textHeight / 2));
         });
     }
 

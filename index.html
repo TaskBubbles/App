@@ -40,15 +40,40 @@
       height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <!-- End Google Tag Manager (noscript) -->
 
-
     <div class="theme-div">
       <!-- Rounded switch -->
-      <label class="switch">
+      <label class="theme-switch">
         <label for="theme-input" aria-label="theme switch"></label>
         <input type="checkbox" id="theme-input" onclick="ToggleTheme()">
         <span class="slider round"></span>
       </label>
     </div>
+
+    <div class="eye-div">
+      <!-- Rounded switch -->
+      <label class="eye-switch">
+        <label for="eye-input" aria-label="eye switch"></label>
+        <input type="checkbox" id="eye-input" onclick="ToggleCompletedTasks(this.checked)">
+        <svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+          <g id="Eye" class="eyeIcon">
+            <g>
+              <path class="cls-1" d="M37.57,53.86c-12.19,0-22.11-9.92-22.11-22.11s9.92-22.11,22.11-22.11,22.11,9.92,22.11,22.11-9.92,22.11-22.11,22.11ZM37.57,14.62c-9.45,0-17.13,7.69-17.13,17.13s7.69,17.13,17.13,17.13,17.13-7.69,17.13-17.13-7.69-17.13-17.13-17.13Z"/>
+              <path class="cls-1" d="M37.57,53.86C17.59,53.86,1.87,34.13,1.21,33.29l-1.21-1.54,1.21-1.54c.66-.84,16.38-20.57,36.36-20.57s35.7,19.73,36.36,20.57l1.21,1.54-1.21,1.54c-.66.84-16.38,20.57-36.36,20.57ZM6.44,31.75c4,4.47,16.61,17.13,31.13,17.13s27.13-12.66,31.13-17.13c-4-4.47-16.61-17.13-31.13-17.13S10.44,27.28,6.44,31.75Z"/>
+              <path class="cls-1" d="M37.57,21.16c-1.12,0-2.19.18-3.21.5,1.89.81,3.21,2.68,3.21,4.86,0,2.92-2.37,5.29-5.29,5.29-2.16,0-4.01-1.29-4.84-3.15-.3.97-.46,2.01-.46,3.08,0,5.85,4.74,10.59,10.59,10.59s10.59-4.74,10.59-10.59-4.74-10.59-10.59-10.59Z"/>
+            </g>
+          </g>
+          <g id="Eye_Off" class="eyeIcon hidden">
+            <g>
+              <path class="cls-2" d="M37.57,53.86c-12.19,0-22.11-9.92-22.11-22.11s9.92-22.11,22.11-22.11,22.11,9.92,22.11,22.11-9.92,22.11-22.11,22.11ZM37.57,14.62c-9.45,0-17.13,7.69-17.13,17.13s7.69,17.13,17.13,17.13,17.13-7.69,17.13-17.13-7.69-17.13-17.13-17.13Z"/>
+              <path class="cls-2" d="M37.57,53.86C17.59,53.86,1.87,34.13,1.21,33.29l-1.21-1.54,1.21-1.54c.66-.84,16.38-20.57,36.36-20.57s35.7,19.73,36.36,20.57l1.21,1.54-1.21,1.54c-.66.84-16.38,20.57-36.36,20.57ZM6.44,31.75c4,4.47,16.61,17.13,31.13,17.13s27.13-12.66,31.13-17.13c-4-4.47-16.61-17.13-31.13-17.13S10.44,27.28,6.44,31.75Z"/>
+              <rect class="cls-2" x="-7.31" y="27.92" width="86.05" height="7.07" rx="3.54" ry="3.54" transform="translate(-11.78 34.46) rotate(-45)"/>
+            </g>
+          </g>
+        </svg>
+
+      </label>
+    </div>
+
 
     <div class="autoscaling-div">
       <button class="autoscaling-input" onclick="resetZoom();">
@@ -106,6 +131,20 @@
     <div class="add-task">
 
       <div class="add-task-backdrop"></div>
+
+      <div class="completed-div">
+        <label class="completed-switch">
+          <label for="completed-input" aria-label="completed switch"></label>
+          <input type="checkbox" id="completed-input" onclick="SetBubbleCompleted(this.checked)">
+          <svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 86.72 86.72">
+            <g id="Checkmark">
+              <circle class="completed-bg" cx="43.36" cy="43.36" r="40.86"/>
+              <path class="completed-checkmark hidden" d="M33.59,59.76,66.68,26.68h0c1.46,1.46,1.46,3.84,0,5.29l-27.79,27.79c-1.46,1.46-3.84,1.46-5.29,0l-13.56-13.56c-1.46-1.46-1.46-3.84,0-5.29,1.46-1.46,3.84-1.46,5.29,0l10.92,10.92,25.14-25.14c1.46-1.46,3.84-1.46,5.29,0Z"/>
+            </g>
+          </svg>
+        </label>
+      </div>
+
       <h1 class="heading">Add Task</h1>
 
       <div class="input-group">
@@ -145,7 +184,7 @@
     </div>
   </div>
       <div class="btns">
-        <button class="cancel-btn" onclick="CancelTaskCreation();" alt="Cancel Task Creation Button">Cancel</button>
+        <button class="delete-btn" onclick="DeleteTask();" alt="Delete Task Button">Delete</button>
         <button class="add-btn" onclick="ConfirmTaskCreation();" alt="Confirm Task Creation Button">Confirm</button>
       </div>
     </div>

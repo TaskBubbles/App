@@ -9,6 +9,7 @@ class AddTaskButton {
             }
         );
         this.body.taskBubble = this;
+        this.body.identifier = 1;
         this.Pressed = false;
     };
 
