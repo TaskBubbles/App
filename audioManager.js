@@ -22,7 +22,6 @@ class AudioManager {
     }
 
     if (this.activeSources.length >= this.MAX_SOUNDS) {
-      console.log("Maximum number of sounds playing. Try again later.");
       return;
     }
 

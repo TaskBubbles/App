@@ -260,7 +260,6 @@ class TaskBubble {
 
     SetCompleted(completed) {
 
-        console.log(completed);
         this.body.completed = completed;
 
         if (completed) {
@@ -274,7 +273,8 @@ class TaskBubble {
             });
 
             if (editedBubble != null && !completedVisible) {
-                ToggleCompletedTasks(true);
+                ToggleCompletedTasks();
+
             }
         }
         else {

@@ -127,14 +127,14 @@ function ToggleTheme() {
 
 let completedBubbles = [];
 let completedVisible = false;
-function ToggleCompletedTasks(checkbox) {
+function ToggleCompletedTasks() {
 
-
+  console.log("h");
   eyeIcons[0].classList.toggle("hidden");
   eyeIcons[1].classList.toggle("hidden");
 
 
-  completedVisible = checkbox;
+  completedVisible = !completedVisible;
 
   if (completedVisible) {
     completedBubbles.forEach(bubble => {

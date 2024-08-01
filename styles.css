@@ -264,7 +264,7 @@ body {
   transition: 0.3s;
 }
 /* Hide default HTML checkbox */
-.eye-switch input {
+.eye-input {
   opacity: 0;
   width: 0;
   height: 0;
