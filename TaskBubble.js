@@ -273,7 +273,7 @@ class TaskBubble {
                 identifier: this.body.identifier
             });
 
-            if (editedBubble != null) {
+            if (editedBubble != null && !completedVisible) {
                 ToggleCompletedTasks(true);
             }
         }
