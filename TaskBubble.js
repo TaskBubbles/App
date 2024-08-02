@@ -36,6 +36,7 @@ class TaskBubble {
         Body.scale(this.body, ClusterScaler * scale, ClusterScaler * scale);
     }
 
+
     brighterColor(percent) {
         let rgba = hexToRgba(this.body.color);
 
@@ -171,7 +172,10 @@ class TaskBubble {
         }
 
         if (completedVisible) {
-
+            scaling = false;
+            setTimeout(() => {
+                scaling = true;
+            }, 500);
             new TaskBubble(RandomPosAroundCenter(1000), this.body.title, this.body.date, this.body.color, this.body.scale, this.body.completed, this.body.identifier);
         }
 
