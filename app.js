@@ -358,7 +358,7 @@ function StackToScreenDifference() {
   let xR = render.bounds.max.x - stackBounds.max.x;
   let yL = stackBounds.min.y;
   let yR = render.bounds.max.y - stackBounds.max.y;
-  let padding = 0;
+  let padding = 20;
   return Math.min(xL, xR, yL, yR) - padding;
 }
 
