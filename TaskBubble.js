@@ -178,6 +178,7 @@ class TaskBubble {
             }, 500);
             new TaskBubble(RandomPosAroundCenter(1000), this.body.title, this.body.date, this.body.color, this.body.scale, this.body.completed, this.body.identifier);
         }
+        eyeText.innerHTML = completedBubbles.length;
 
         Composite.remove(bubbleStack, [this.body]);
         Composite.remove(engine.world, [this.body]);
@@ -254,6 +255,7 @@ class TaskBubble {
         }
         Composite.remove(bubbleStack, [this.body]);
         SaveData();
+        eyeText.innerHTML = completedBubbles.length;
         Composite.remove(engine.world, [this.body]);
     }
 
@@ -289,6 +291,7 @@ class TaskBubble {
             }
 
         }
+        eyeText.innerHTML = completedBubbles.length;
 
         this.SetColor(this.body.color);
     }

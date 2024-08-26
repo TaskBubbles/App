@@ -247,15 +247,22 @@ body {
 
 .eye-div {
   position: absolute;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 2.5rem;
+  font-weight: 500;
+  gap: 10px;
   right: 0;
+  height: 6.7rem;
   margin: 20px;
-  width: 100px; /* Example default width */
-  height: 100px; /* Example default height */
 }
-
+#eye-text {
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
 .eye-switch {
   display: inline-block;
-
   width: 100px;
 }
 

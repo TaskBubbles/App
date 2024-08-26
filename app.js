@@ -76,6 +76,7 @@ const themeMeta = document.querySelector('meta[name="theme-color"]');
 const infoContainer = document.getElementById('info-container');
 const autoscaleIcon = document.getElementById('autoscaling-icon');
 const eyeIcons = document.querySelectorAll('.eyeIcon');
+const eyeText = document.getElementById('eye-text');
 
 //#endregion
 
@@ -111,6 +112,7 @@ function ToggleTheme() {
     render.options.background = ColorScheme[5];
     themeMeta.setAttribute('content', ColorScheme[5]);
     eyeIcons.forEach(eyeIcon => eyeIcon.style.fill = ColorScheme[6]);
+    eyeText.style.color = ColorScheme[6];
     autoscaleIcon.style.fill = ColorScheme[6];
     autoscaleIcon.style.filter = 'drop-shadow(1px 3px 5px rgb(0, 0, 0, 0.2))';
 
@@ -119,6 +121,7 @@ function ToggleTheme() {
     render.options.background = ColorScheme[6];
     themeMeta.setAttribute('content', ColorScheme[6]);
     eyeIcons.forEach(eyeIcon => eyeIcon.style.fill = ColorScheme[5]);
+    eyeText.style.color = ColorScheme[5];
     autoscaleIcon.style.fill = ColorScheme[5];
     autoscaleIcon.style.filter = 'drop-shadow(1px 3px 5px rgb(1, 1, 1, 0.2))';
   }
@@ -129,7 +132,6 @@ let completedBubbles = [];
 let completedVisible = false;
 function ToggleCompletedTasks() {
 
-  console.log("h");
   eyeIcons[0].classList.toggle("hidden");
   eyeIcons[1].classList.toggle("hidden");
 

@@ -42,6 +42,7 @@ function LoadData() {
             } else {
                 new TaskBubble(RandomPosAroundCenter(1000), bubble.title, bubble.date, bubble.color, bubble.scale, bubble.completed, bubble.identifier);
             }
+            eyeText.innerHTML = completedBubbles.length;
         });
     } else {
         idCounter = 1; // Reset if no data found
