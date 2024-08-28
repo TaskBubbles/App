@@ -413,11 +413,23 @@ class TaskBubble {
         const adjustedPosX = (pos.x - render.bounds.min.x) * scale;
         const adjustedPosY = (pos.y - render.bounds.min.y) * scale;
 
-        let text = this.body.date.replaceAll("-", ".");
-        let lines = text.split("T");
+        let currentDate = new Date();
+        let todayText = currentDate.toISOString().split("T")[0].replaceAll("-", ".");
+
+        let tomorrowDate = new Date(currentDate);
+        tomorrowDate.setDate(currentDate.getDate() + 1);
+        let tomorrowText = tomorrowDate.toISOString().split("T")[0].replaceAll("-", ".");
+
+        let dateText = this.body.date.split("T")[0].replaceAll("-", ".");
+
+        let text = (dateText === todayText) ? "Today" : (dateText === tomorrowText) ? "Tomorrow" : dateText;
+        let lines = [text].concat(this.body.date.split("T").slice(1));
+
         // Draw each line separately
         for (let i = 0; i < lines.length; i++) {
             context.fillText(lines[i], adjustedPosX, adjustedPosY + fontSize * 3 + (i * fontSize * 1.2));
         }
     }
+
+
 }
