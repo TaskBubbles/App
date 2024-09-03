@@ -167,6 +167,12 @@ class TaskBubble {
         PlayPopSound();
         this.playLottieAnimation();
 
+        if (this.body.title == defaultTaskTitle) {
+            this.DeleteBubble();
+            return;
+        }
+
+
         if (!this.body.completed) {
             this.SetCompleted(true);
         }
@@ -178,7 +184,7 @@ class TaskBubble {
             }, 500);
             new TaskBubble(RandomPosAroundCenter(1000), this.body.title, this.body.date, this.body.color, this.body.scale, this.body.completed, this.body.identifier);
         }
-        eyeText.innerHTML = completedBubbles.length;
+        eyeText.innerHTML = completedBubbles.length > 0 ? completedBubbles.length : "";
 
         Composite.remove(bubbleStack, [this.body]);
         Composite.remove(engine.world, [this.body]);
@@ -255,7 +261,7 @@ class TaskBubble {
         }
         Composite.remove(bubbleStack, [this.body]);
         SaveData();
-        eyeText.innerHTML = completedBubbles.length;
+        eyeText.innerHTML = completedBubbles.length > 0 ? completedBubbles.length : "";
         Composite.remove(engine.world, [this.body]);
     }
 
@@ -291,7 +297,7 @@ class TaskBubble {
             }
 
         }
-        eyeText.innerHTML = completedBubbles.length;
+        eyeText.innerHTML = completedBubbles.length > 0 ? completedBubbles.length : "";
 
         this.SetColor(this.body.color);
     }
