@@ -373,24 +373,45 @@ input:checked + .slider:before {
   position: fixed;
   width: 100%;
   height: 100%;
-  background-color: #fff5;
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(20px);
   align-items: center;
   justify-content: center;
-  text-align: center;
 }
 
 #info-container.active {
   display: flex;
 }
+#info-background {
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  position: absolute;
+}
 #info-div {
-  background-color: #f0edfc;
-  border: 3px solid #dbd7ed;
+  background-color: #110d1cff;
+  color: #f0edfc;
   border-radius: 3rem;
-  box-shadow: 1px 3px 20px 0px #0001;
-  padding: 30px;
-  font-size: 1.5svh;
-  max-width: 90%;
+  box-shadow: 1px 3px 20px 0px #0005;
+  padding: 50px;
+  font-size: 1rem;
+  max-width: 98%;
+  width: 1000px;
+}
+
+h2 {
+  padding-bottom: 0.2rem;
+}
+
+@media only screen and (max-width: 1000px) {
+  #info-div {
+    font-size: 2.3rem;
+  }
+  h1 {
+    padding-bottom: 1rem;
+  }
+  h2 {
+    padding-bottom: 1.2rem;
+  }
 }
 
 .disclamer {
@@ -399,13 +420,49 @@ input:checked + .slider:before {
 
 .info-links {
   display: flex;
-  justify-content: space-evenly;
-  margin: 5px;
-  margin-top: 30px;
+  justify-content: space-around;
+  gap: 15px;
+  align-items: center;
 }
 
+a {
+  border-radius: 70px;
+  background-color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  color: rgb(65, 15, 200);
+  text-shadow: 0 0 10px rgba(65, 15, 200, 0.2);
+  box-shadow: 0 0 10px rgba(65, 15, 200, 0.5);
+  padding: 1rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  transition: 0.2s;
+  -webkit-transition: 0.2s;
+}
+
+a:hover {
+  box-shadow: 0 0 20px rgba(65, 15, 200, 1);
+}
 #donate-button {
   width: 12svh;
+}
+#donate-button-container {
+  border-radius: 1000px;
+  background-color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  color: rgb(65, 15, 200);
+  text-shadow: 0 0 10px rgba(65, 15, 200, 0.2);
+  box-shadow: 0 0 10px rgba(65, 15, 200, 1);
+  padding: 1rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  transition: 0.2s;
+  -webkit-transition: 0.2s;
+}
+
+#donate-button-container:hover {
+  box-shadow: 0 0 20px rgba(65, 15, 200, 1);
 }
 #vibrateBtn {
   position: absolute;
