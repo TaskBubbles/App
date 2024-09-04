@@ -182,21 +182,24 @@
         <button class="colorBtn circle-button" value="4" aria-label="Purple"></button>
       </div>
     </div>
-      <div class="datetime-wrapper">
-        <div class="calendar-wrapper circle-button">
-          <input type="datetime-local" id="datetime-picker">
-          <img src="images/calendar.svg" alt="calendar" class="calendar-icon">
-        </div>
 
-        <div class="datetime-display">
-          <p id="date-display"></p>
-          <p id="time-display"></p>
-        </div>
-    </div>
   </div>
       <div class="btns">
-        <button class="delete-btn" onclick="DeleteTask();" alt="Delete Task Button">Delete</button>
-        <button class="add-btn" onclick="ConfirmTaskCreation();" alt="Confirm Task Creation Button">Confirm</button>
+        <button class="delete-btn" onclick="DeleteTask();" alt="Delete Task Button">          
+          <img src="images/DeleteIcon.svg" alt="delete" class="delete-icon">
+        </button>
+        <button class="add-btn" onclick="ConfirmTaskCreation();" alt="Confirm Task Creation Button">Add</button>
+        <div class="datetime-wrapper">
+          <div class="calendar-wrapper circle-button">
+            <input type="datetime-local" id="datetime-picker">
+            <img src="images/calendar.svg" alt="calendar" class="calendar-icon">
+          </div>
+  
+          <div class="datetime-display">
+            <p id="date-display"></p>
+            <p id="time-display"></p>
+          </div>
+      </div>
       </div>
     </div>
     <script src="matter.js"></script>
