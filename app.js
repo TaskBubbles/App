@@ -331,11 +331,16 @@ function ScaleBoard() {
   const currentHeight = render.bounds.max.y - render.bounds.min.y;
 
   // Only scale the board if the current bounds match the initial bounds
-  //if (currentWidth === initialBounds.width && currentHeight === initialBounds.height) {
+  if (currentWidth === initialBounds.width && currentHeight === initialBounds.height) {
+    if (!(autoscaleIcon.classList.contains("hidden"))) {
+      autoscaleIcon.classList.add("hidden");
+    }
 
-  if (autoscaleIcon.classList.contains("scale-pulse")) {
-    autoscaleIcon.classList.remove("scale-pulse")
   }
+  else if (autoscaleIcon.classList.contains("hidden")) {
+    autoscaleIcon.classList.remove("hidden");
+  }
+
 
   let scale = Matter.Common.clamp(1 + StackToScreenDifference() * 0.00005, 0.01, 1.9);
 
@@ -348,18 +353,14 @@ function ScaleBoard() {
     });
     ClusterScaler *= scale;
   }
-
-  if (!autoscaleIcon.classList.contains("scale-pulse")) {
-    autoscaleIcon.classList.add("scale-pulse")
-  }
 }
 
 function StackToScreenDifference() {
   let stackBounds = Composite.bounds(bubbleStack);
   let xL = stackBounds.min.x;
-  let xR = initialBounds.width;
+  let xR = initialBounds.max.x - stackBounds.max.x;
   let yL = stackBounds.min.y;
-  let yR = initialBounds.height;
+  let yR = initialBounds.max.y - stackBounds.max.y;
   let padding = 20;
   return Math.min(xL, xR, yL, yR) - padding;
 }
