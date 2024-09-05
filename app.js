@@ -331,25 +331,25 @@ function ScaleBoard() {
   const currentHeight = render.bounds.max.y - render.bounds.min.y;
 
   // Only scale the board if the current bounds match the initial bounds
-  if (currentWidth === initialBounds.width && currentHeight === initialBounds.height) {
+  //if (currentWidth === initialBounds.width && currentHeight === initialBounds.height) {
 
-    if (autoscaleIcon.classList.contains("scale-pulse")) {
-      autoscaleIcon.classList.remove("scale-pulse")
-    }
-
-    let scale = Matter.Common.clamp(1 + StackToScreenDifference() * 0.00005, 0.01, 1.9);
-
-    if (bubbleStack.bodies.length <= 0) {
-      ClusterScaler = 1;
-    } else {
-      if (ClusterScaler < 0.1 && scale <= 1) return;
-      bubbleStack.bodies.forEach(bubble => {
-        Body.scale(bubble, scale, scale, bubble.position);
-      });
-      ClusterScaler *= scale;
-    }
+  if (autoscaleIcon.classList.contains("scale-pulse")) {
+    autoscaleIcon.classList.remove("scale-pulse")
   }
-  else if (!autoscaleIcon.classList.contains("scale-pulse")) {
+
+  let scale = Matter.Common.clamp(1 + StackToScreenDifference() * 0.00005, 0.01, 1.9);
+
+  if (bubbleStack.bodies.length <= 0) {
+    ClusterScaler = 1;
+  } else {
+    if (ClusterScaler < 0.1 && scale <= 1) return;
+    bubbleStack.bodies.forEach(bubble => {
+      Body.scale(bubble, scale, scale, bubble.position);
+    });
+    ClusterScaler *= scale;
+  }
+
+  if (!autoscaleIcon.classList.contains("scale-pulse")) {
     autoscaleIcon.classList.add("scale-pulse")
   }
 }
@@ -357,9 +357,9 @@ function ScaleBoard() {
 function StackToScreenDifference() {
   let stackBounds = Composite.bounds(bubbleStack);
   let xL = stackBounds.min.x;
-  let xR = render.bounds.max.x - stackBounds.max.x;
+  let xR = initialBounds.width;
   let yL = stackBounds.min.y;
-  let yR = render.bounds.max.y - stackBounds.max.y;
+  let yR = initialBounds.height;
   let padding = 20;
   return Math.min(xL, xR, yL, yR) - padding;
 }

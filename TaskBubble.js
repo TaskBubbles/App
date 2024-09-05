@@ -178,10 +178,10 @@ class TaskBubble {
         }
 
         if (completedVisible) {
-            scaling = false;
-            setTimeout(() => {
-                scaling = true;
-            }, 500);
+            // scaling = false;
+            // setTimeout(() => {
+            //     scaling = true;
+            // }, 500);
             new TaskBubble(RandomPosAroundCenter(1000), this.body.title, this.body.date, this.body.color, this.body.scale, this.body.completed, this.body.identifier);
         }
         eyeText.innerHTML = completedBubbles.length > 0 ? completedBubbles.length : "";
@@ -416,8 +416,8 @@ class TaskBubble {
         context.textBaseline = 'top';
 
         // Adjust position to account for zoom and pan
-        const adjustedPosX = (pos.x - render.bounds.min.x) * scale;
-        const adjustedPosY = (pos.y - render.bounds.min.y) * scale;
+        const adjustedPosX = Math.round((pos.x - render.bounds.min.x) * scale);
+        const adjustedPosY = Math.round((pos.y - render.bounds.min.y) * scale);
 
         let currentDate = new Date();
         let todayText = currentDate.toISOString().split("T")[0].replaceAll("-", ".");
