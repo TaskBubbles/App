@@ -267,6 +267,7 @@ body {
 
 #installButton {
   position: absolute;
+  display: none;
   padding: 1rem;
   font-size: 2rem;
   font-weight: 700;
