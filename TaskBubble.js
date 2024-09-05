@@ -182,7 +182,7 @@ class TaskBubble {
             // setTimeout(() => {
             //     scaling = true;
             // }, 500);
-            new TaskBubble(RandomPosAroundCenter(1000), this.body.title, this.body.date, this.body.color, this.body.scale, this.body.completed, this.body.identifier);
+            new TaskBubble(RandomPosAroundCenter(1000), this.body.title, this.body.date, this.body.color, this.body.scaler, this.body.completed, this.body.identifier);
         }
         eyeText.innerHTML = completedBubbles.length > 0 ? completedBubbles.length : "";
 
