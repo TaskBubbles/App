@@ -11,10 +11,9 @@ class AddTaskButton {
         this.body.taskBubble = this;
         this.body.identifier = 1;
         this.Pressed = false;
-        this.body.isSensor = true;
     };
 
-    startPos = { x: render.bounds.max.x - 120, y: render.bounds.max.y - 120 };
+    startPos = { x: render.bounds.max.x / 2, y: render.bounds.max.y / 2 };
 
     StartPress() {
         this.Pressed = true;
