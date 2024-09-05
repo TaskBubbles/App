@@ -369,7 +369,7 @@ function StackToScreenDifference() {
 function SetBubblesAttraction() {
   bubbleStack.bodies.forEach(bubble => {
     let force = Vector.mult(
-      Vector.sub(addTaskButton.body.position, bubble.position), bubble.area * 0.000000005);
+      Vector.sub({ x: render.bounds.max.x / 2, y: render.bounds.max.y / 2 }, bubble.position), bubble.area * 0.000000005);
     Body.applyForce(bubble, bubble.position, force);
 
   });
