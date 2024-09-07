@@ -352,25 +352,33 @@ class TaskBubble {
     }
 
 
-    WrapText(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+    WrapText(ctx, text, x, y, maxWidth, lineHeight, maxLines, scale = 1) {
         let words = text.split(' ');
         let line = '';
         let testLine = '';
         let lineArray = [];
         let linesCount = 0;
 
+        // Adjust the maxWidth and lineHeight by the scale
+        let adjustedMaxWidth = maxWidth / scale;
+        let adjustedLineHeight = lineHeight * scale;
+
         for (var n = 0; n < words.length; n++) {
             let word = words[n];
             testLine = line + word + ' ';
+
+            // Measure text without worrying about scale since we've adjusted maxWidth
             let metrics = ctx.measureText(testLine);
             let testWidth = metrics.width;
 
-            if (testWidth > maxWidth && n > 0) {
+            if (testWidth > adjustedMaxWidth && n > 0) {
+                // Push the current line to the array and move to the next line
                 lineArray.push([line.trim(), x, y]);
-                y += lineHeight;
+                y += adjustedLineHeight;
                 line = word + ' ';
                 linesCount++;
 
+                // Stop if we've hit the maxLines limit
                 if (linesCount >= maxLines - 1) {
                     line += words.slice(n + 1).join(' ');
                     lineArray.push([line.trim(), x, y]);
@@ -380,6 +388,7 @@ class TaskBubble {
                 line += word + ' ';
             }
 
+            // Handle the last word
             if (n === words.length - 1) {
                 if (linesCount < maxLines - 1) {
                     lineArray.push([line.trim(), x, y]);
@@ -396,6 +405,7 @@ class TaskBubble {
 
         return lineArray;
     }
+
 
     DrawDate() {
         if (this.body.date.length == '') return;
