@@ -352,33 +352,35 @@ class TaskBubble {
     }
 
 
-    WrapText(ctx, text, x, y, maxWidth, lineHeight, maxLines, scale = 1) {
+    WrapText(ctx, text, x, y, maxWidth, lineHeight, maxLines, zoomScale = 1) {
         let words = text.split(' ');
         let line = '';
         let testLine = '';
         let lineArray = [];
         let linesCount = 0;
 
-        // Adjust the maxWidth and lineHeight by the scale
-        let adjustedMaxWidth = maxWidth / scale;
-        let adjustedLineHeight = lineHeight * scale;
+        // Keep the wrapping width constant by dividing maxWidth by the zoom scale.
+        let adjustedMaxWidth = maxWidth / zoomScale;
+
+        // Keep the line height based on the original font size, but scale the font.
+        let adjustedLineHeight = lineHeight * zoomScale;
 
         for (var n = 0; n < words.length; n++) {
             let word = words[n];
             testLine = line + word + ' ';
 
-            // Measure text without worrying about scale since we've adjusted maxWidth
+            // Measure the text width based on the current zoom level.
             let metrics = ctx.measureText(testLine);
             let testWidth = metrics.width;
 
+            // If the text exceeds the adjusted width, break it into the next line.
             if (testWidth > adjustedMaxWidth && n > 0) {
-                // Push the current line to the array and move to the next line
                 lineArray.push([line.trim(), x, y]);
                 y += adjustedLineHeight;
                 line = word + ' ';
                 linesCount++;
 
-                // Stop if we've hit the maxLines limit
+                // Stop if we've hit the max number of lines allowed.
                 if (linesCount >= maxLines - 1) {
                     line += words.slice(n + 1).join(' ');
                     lineArray.push([line.trim(), x, y]);
@@ -398,13 +400,14 @@ class TaskBubble {
             }
         }
 
-        // Ensure no duplication of the last line
+        // Avoid duplicate last line entries.
         if (linesCount >= maxLines && line.trim().length > 0) {
             lineArray[maxLines - 1][0] += ' ' + line.trim();
         }
 
         return lineArray;
     }
+
 
 
     DrawDate() {
