@@ -1,6 +1,6 @@
 //Zoom Script
 (function () {
-    const zoomFactor = 1.1; // Zoom in/out factor
+    const zoomFactor = 1.2; // Zoom in/out factor
     let isDragging = false;
     let lastMousePosition = { x: 0, y: 0 };
     let pinchStartDistance = 0;
@@ -150,8 +150,9 @@
             pinchStartDistance = pinchDistance;
 
             // Handle panning
-            const deltaX = ((event.touches[0].clientX + event.touches[1].clientX) / 2) - lastMousePosition.x;
-            const deltaY = ((event.touches[0].clientY + event.touches[1].clientY) / 2) - lastMousePosition.y;
+            const panIntensity = 1.5; // Adjust this value to increase/decrease panning sensitivity
+            const deltaX = (((event.touches[0].clientX + event.touches[1].clientX) / 2) - lastMousePosition.x) * panIntensity;
+            const deltaY = (((event.touches[0].clientY + event.touches[1].clientY) / 2) - lastMousePosition.y) * panIntensity;
 
             lastMousePosition = { x: (event.touches[0].clientX + event.touches[1].clientX) / 2, y: (event.touches[0].clientY + event.touches[1].clientY) / 2 };
 
@@ -167,6 +168,7 @@
             render.bounds.max.y -= panFactorY;
         }
     });
+
 
     render.canvas.addEventListener('touchend', function (event) {
         if (event.touches.length == 0) {
