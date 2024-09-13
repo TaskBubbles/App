@@ -112,7 +112,8 @@ function CheckFirstSession() {
   if (localStorage.length > 0) {
     return;
   }
-
+  themeInput.checked = true;
+  ToggleTheme();
   SpawnTutorialBubbles();
 }
 
