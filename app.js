@@ -248,7 +248,7 @@ let panning = false;
 Events.on(mouseConstraint, "mousedown", function (e) {
   if (e.mouse.button != '' || e.touch || panning) return;
   lastMouseDownTime = engine.timing.timestamp;
-
+  scaling = false;
   if (editedBubble != null) {
     return;
   }
@@ -278,6 +278,7 @@ Events.on(mouseConstraint, "mousedown", function (e) {
 
 Events.on(mouseConstraint, "mouseup", function (e) {
   if (addTaskButton.Pressed) addTaskButton.EndPress();
+  scaling = true;
 
   if (editedBubble != null) {
     return;
