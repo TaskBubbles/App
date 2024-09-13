@@ -103,8 +103,27 @@ document.addEventListener("DOMContentLoaded", event => {
   });
 
   LoadData();
+  CheckFirstSession();
 });
 
+function CheckFirstSession() {
+
+  console.log(localStorage)
+  if (localStorage.length > 0) {
+    return;
+  }
+
+  SpawnTutorialBubbles();
+}
+
+function SpawnTutorialBubbles() {
+  new TaskBubble(RandomPosAroundCenter(1000), "Hold Bubble To POP!", "", ColorScheme[4], 3);
+  new TaskBubble(RandomPosAroundCenter(1000), "Tap Bubble To Edit", "", ColorScheme[3], 2);
+  new TaskBubble(RandomPosAroundCenter(1000), "Press + To Add Bubble", "", ColorScheme[2], 1);
+  new TaskBubble(RandomPosAroundCenter(1000), isTouchDevice() ? "Pinch to Zoom and Pan" : "Scroll To Zoom Scroll Press To Drag", "", ColorScheme[1], 0.5);
+  new TaskBubble(RandomPosAroundCenter(1000), "Press Eye 👁 To See Past Tasks", "", ColorScheme[0], 0.1);
+  SaveData();
+}
 
 let darkTheme = false;
 function ToggleTheme() {

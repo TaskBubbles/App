@@ -23,6 +23,12 @@ function RandomPosAroundCenter(magnitude = 1) {
     return Vector.create(centerPoint.x + newX, centerPoint.y + newY);
 }
 
+function isTouchDevice() {
+    return (('ontouchstart' in window) ||
+        (navigator.maxTouchPoints > 0) ||
+        (navigator.msMaxTouchPoints > 0));
+}
+
 //#region Color Conversion
 // Function to convert hex color code to RGBA
 function hexToRgba(hex) {
