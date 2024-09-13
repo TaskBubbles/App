@@ -22,20 +22,19 @@ class TaskBubble {
         this.SetColor(color);
 
         if (identifier == 0) {
-
             this.body.identifier = idCounter;
             idCounter++;
-        }
-        else {
+        } else {
             this.body.identifier = identifier;
-
         }
 
         Composite.add(engine.world, this.body);
         Composite.move(engine.world, this.body, bubbleStack);
         Body.scale(this.body, ClusterScaler * scale, ClusterScaler * scale);
-    }
 
+        // Initialize wrappedTitle for caching
+        this.body.wrappedTitle = null;
+    }
 
     brighterColor(percent) {
         let rgba = hexToRgba(this.body.color);
@@ -65,26 +64,21 @@ class TaskBubble {
         resetZoom();
         scaling = false;
         for (let checkmark of completedCheckmark) {
-
             if (this.body.completed) {
                 if (checkmark.classList.contains("hidden")) {
                     checkmark.classList.remove("hidden");
                 }
-            }
-            else {
+            } else {
                 if (!checkmark.classList.contains("hidden")) {
                     checkmark.classList.add("hidden");
-
                 }
             }
-
-            completedInput.checked = this.body.completed
+            completedInput.checked = this.body.completed;
         }
 
         if (this.body.title != defaultTaskTitle) {
             titleInput.value = this.body.title;
-        }
-        else {
+        } else {
             titleInput.value = null;
         }
 
@@ -97,15 +91,10 @@ class TaskBubble {
             dateInput.value = d;
             dateDisplay.innerHTML = lines[0];
             timeDisplay.innerHTML = lines[1];
-        }
-        else {
+        } else {
             dateInput.value = '';
             dateDisplay.innerHTML = '';
             timeDisplay.innerHTML = '';
-        }
-
-        if (this.body.checked) {
-
         }
 
         editedBubble = this;
@@ -134,7 +123,6 @@ class TaskBubble {
                 bubbleToUpdate.color = this.body.color;
                 bubbleToUpdate.scale = this.body.scale;
             }
-
         }
 
         SaveData();
@@ -147,9 +135,7 @@ class TaskBubble {
             if (this.body.render.lineWidth >= endWidth) {
                 this.body.render.strokeStyle = this.body.completed ? this.disabledColor() : this.brighterColor(50);
             }
-
         }, engine.timing.lastDelta);
-
     }
 
     EndPress() {
@@ -173,16 +159,11 @@ class TaskBubble {
             return;
         }
 
-
         if (!this.body.completed) {
             this.SetCompleted(true);
         }
 
         if (completedVisible) {
-            // scaling = false;
-            // setTimeout(() => {
-            //     scaling = true;
-            // }, 500);
             new TaskBubble(RandomPosAroundCenter(1000), this.body.title, this.body.date, this.body.color, this.body.scaler, this.body.completed, this.body.identifier);
         }
         eyeText.innerHTML = completedBubbles.length > 0 ? completedBubbles.length : "";
@@ -191,7 +172,6 @@ class TaskBubble {
         Composite.remove(engine.world, [this.body]);
 
         SaveData();
-
     }
 
     playLottieAnimation() {
@@ -200,8 +180,8 @@ class TaskBubble {
         const animationHeight = 500;
 
         // Calculate the current scale factor similar to DrawText
-        const scaleX = (initialBounds.width) / (render.bounds.max.x - render.bounds.min.x);
-        const scaleY = (initialBounds.height) / (render.bounds.max.y - render.bounds.min.y);
+        const scaleX = initialBounds.width / (render.bounds.max.x - render.bounds.min.x);
+        const scaleY = initialBounds.height / (render.bounds.max.y - render.bounds.min.y);
         const scale = Math.min(scaleX, scaleY);
 
         // Calculate the scaled width and height based on the bubble size and renderer scale
@@ -226,7 +206,7 @@ class TaskBubble {
             container: animationContainer,
             renderer: 'svg',
             loop: false,
-            autoplay: false,  // Changed to false, we'll play it manually after modifying
+            autoplay: false, // We'll play it manually after modifying
             path: 'Pop.json',
             rendererSettings: {
                 preserveAspectRatio: 'xMidYMid slice'
@@ -272,7 +252,6 @@ class TaskBubble {
     }
 
     SetCompleted(completed) {
-
         this.body.completed = completed;
 
         if (completed) {
@@ -287,34 +266,41 @@ class TaskBubble {
 
             if (editedBubble != null && !completedVisible) {
                 ToggleCompletedTasks();
-
             }
-        }
-        else {
+        } else {
             let index = completedBubbles.findIndex(bubble => bubble.identifier == this.body.identifier);
 
             if (index !== -1) {
                 completedBubbles.splice(index, 1);
             }
-
         }
         eyeText.innerHTML = completedBubbles.length > 0 ? completedBubbles.length : "";
 
         this.SetColor(this.body.color);
     }
 
-
     UpdateAttributes() {
         if (titleInput.value.length > 0) {
             this.body.title = titleInput.value;
-        }
-        else {
+        } else {
             this.body.title = defaultTaskTitle;
         }
 
         this.body.date = dateInput.value;
-    }
 
+        // Compute and cache the wrapped title
+        const context = render.context;
+        const area = this.body.area;
+        const scale = 1; // Assume scale is 1 during UpdateAttributes
+
+        // Set a standard font size and maxWidth for wrapping
+        const fontSize = Math.sqrt(area / this.body.title.length) * 0.5 * scale;
+        context.font = "600 " + fontSize + "px Poppins";
+        const maxWidth = Math.sqrt(this.body.area) * scale;
+
+        const text = this.body.title + (this.body.completed ? " ✔" : "");
+        this.body.wrappedTitle = this.WrapText(context, text, maxWidth, fontSize, 3);
+    }
 
     DrawText() {
         this.DrawTitle();
@@ -322,16 +308,16 @@ class TaskBubble {
     }
 
     DrawTitle() {
-        var context = render.context;
-        var pos = this.body.position;
-        var area = this.body.area;
+        const context = render.context;
+        const pos = this.body.position;
+        const area = this.body.area;
 
         // Calculate the current scale factor
-        const scaleX = (initialBounds.width) / (render.bounds.max.x - render.bounds.min.x);
-        const scaleY = (initialBounds.height) / (render.bounds.max.y - render.bounds.min.y);
+        const scaleX = initialBounds.width / (render.bounds.max.x - render.bounds.min.x);
+        const scaleY = initialBounds.height / (render.bounds.max.y - render.bounds.min.y);
         const scale = Math.min(scaleX, scaleY);
 
-        var fontSize = Math.sqrt(area / this.body.title.length) * 0.5 * scale;
+        const fontSize = Math.sqrt(area / this.body.title.length) * 0.5 * scale;
 
         context.fillStyle = '#fff'; // Text color
         context.font = "600 " + fontSize + "px Poppins"; // Text size and font
@@ -342,48 +328,48 @@ class TaskBubble {
         const adjustedPosX = (pos.x - render.bounds.min.x) * scale;
         const adjustedPosY = (pos.y - render.bounds.min.y) * scale;
 
-        let wrappedText = this.WrapText(context, this.body.title + (this.body.completed ? " ✔" : ""), adjustedPosX, adjustedPosY, Math.sqrt(this.body.area) * scale, fontSize, 3);
-        let textHeight = wrappedText.length * fontSize;
-        let startY = adjustedPosY - textHeight / 2 + fontSize / 2; // Adjust startY to center text vertically
+        // Use cached wrapped title
+        let wrappedText = this.body.wrappedTitle;
 
-        wrappedText.forEach(function (item, index) {
-            context.fillText(item[0], item[1], startY + index * (textHeight / 2));
+        // If wrappedText is undefined (e.g., if UpdateAttributes wasn't called), compute it now
+        if (!wrappedText) {
+            const text = this.body.title + (this.body.completed ? " ✔" : "");
+            const maxWidth = Math.sqrt(this.body.area) * scale;
+            wrappedText = this.WrapText(context, text, maxWidth, fontSize, 3);
+            this.body.wrappedTitle = wrappedText;
+        }
+
+        const textHeight = wrappedText.length * fontSize;
+        const startY = adjustedPosY - textHeight / 2 + fontSize / 2; // Center text vertically
+
+        // Draw each line of the wrapped text
+        wrappedText.forEach((line, index) => {
+            context.fillText(line, adjustedPosX, startY + index * fontSize);
         });
     }
 
-
-    WrapText(ctx, text, x, y, maxWidth, lineHeight, maxLines, zoomScale = 1) {
+    WrapText(ctx, text, maxWidth, lineHeight, maxLines) {
         let words = text.split(' ');
         let line = '';
         let testLine = '';
         let lineArray = [];
         let linesCount = 0;
 
-        // Keep the wrapping width constant by dividing maxWidth by the zoom scale.
-        let adjustedMaxWidth = maxWidth / zoomScale;
-
-        // Keep the line height based on the original font size, but scale the font.
-        let adjustedLineHeight = lineHeight * zoomScale;
-
-        for (var n = 0; n < words.length; n++) {
+        for (let n = 0; n < words.length; n++) {
             let word = words[n];
             testLine = line + word + ' ';
 
-            // Measure the text width based on the current zoom level.
             let metrics = ctx.measureText(testLine);
             let testWidth = metrics.width;
 
-            // If the text exceeds the adjusted width, break it into the next line.
-            if (testWidth > adjustedMaxWidth && n > 0) {
-                lineArray.push([line.trim(), x, y]);
-                y += adjustedLineHeight;
+            if (testWidth > maxWidth && n > 0) {
+                lineArray.push(line.trim());
                 line = word + ' ';
                 linesCount++;
 
-                // Stop if we've hit the max number of lines allowed.
                 if (linesCount >= maxLines - 1) {
                     line += words.slice(n + 1).join(' ');
-                    lineArray.push([line.trim(), x, y]);
+                    lineArray.push(line.trim());
                     break;
                 }
             } else {
@@ -393,35 +379,33 @@ class TaskBubble {
             // Handle the last word
             if (n === words.length - 1) {
                 if (linesCount < maxLines - 1) {
-                    lineArray.push([line.trim(), x, y]);
+                    lineArray.push(line.trim());
                 } else if (linesCount === maxLines - 1 && lineArray.length < maxLines) {
-                    lineArray.push([line.trim(), x, y]);
+                    lineArray.push(line.trim());
                 }
             }
         }
 
-        // Avoid duplicate last line entries.
+        // Combine any remaining text into the last line if max lines exceeded
         if (linesCount >= maxLines && line.trim().length > 0) {
-            lineArray[maxLines - 1][0] += ' ' + line.trim();
+            lineArray[maxLines - 1] += ' ' + line.trim();
         }
 
         return lineArray;
     }
 
-
-
     DrawDate() {
         if (this.body.date.length == '') return;
-        var context = render.context;
-        var area = this.body.area;
+        const context = render.context;
+        const area = this.body.area;
 
         // Calculate the current scale factor
-        const scaleX = (initialBounds.width) / (render.bounds.max.x - render.bounds.min.x);
-        const scaleY = (initialBounds.height) / (render.bounds.max.y - render.bounds.min.y);
+        const scaleX = initialBounds.width / (render.bounds.max.x - render.bounds.min.x);
+        const scaleY = initialBounds.height / (render.bounds.max.y - render.bounds.min.y);
         const scale = Math.min(scaleX, scaleY);
 
-        var fontSize = Math.sqrt(area / this.body.date.length * 0.1) * scale;
-        let pos = { x: this.body.position.x, y: this.body.position.y };
+        const fontSize = Math.sqrt(area / this.body.date.length * 0.1) * scale;
+        const pos = { x: this.body.position.x, y: this.body.position.y };
 
         context.fillStyle = '#fff';
         context.font = fontSize + 'px Poppins';
@@ -449,6 +433,4 @@ class TaskBubble {
             context.fillText(lines[i], adjustedPosX, adjustedPosY + fontSize * 3 + (i * fontSize * 1.2));
         }
     }
-
-
 }
