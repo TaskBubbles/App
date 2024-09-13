@@ -109,6 +109,35 @@ body {
   padding: 1rem;
 }
 
+#scaleSlider {
+  -webkit-appearance: none; /* Override default CSS styles */
+  appearance: none;
+  border-radius: 5rem;
+  background: #110d1cff; /* Grey background */
+  box-shadow: 1px 3px 5px 0px #0003;
+
+  width: 47rem;
+  height: 4rem;
+  margin: 1rem;
+}
+#scaleSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background: #fff;
+  cursor: pointer;
+}
+
+#scaleSlider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #110d1c;
+  cursor: pointer;
+}
+
 .circle-button {
   padding: 2.3rem;
   width: 2rem;

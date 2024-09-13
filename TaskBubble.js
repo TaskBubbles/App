@@ -88,6 +88,7 @@ class TaskBubble {
             titleInput.value = null;
         }
 
+        scaleInput.value = this.body.scaler;
 
         if (this.body.date != '') {
             let d = this.body.date;
@@ -312,7 +313,6 @@ class TaskBubble {
         }
 
         this.body.date = dateInput.value;
-
     }
 
 

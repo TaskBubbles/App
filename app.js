@@ -67,6 +67,7 @@ const sizeButtonDivs = document.querySelectorAll(".sizeBtnDiv")
 const completedCheckmark = document.getElementsByClassName("completed-checkmark");
 const completedInput = document.getElementById("completed-input");
 const titleInput = document.getElementById("title-input");
+const scaleInput = document.getElementById("scaleSlider");
 const colorInput = document.getElementById("color-input");
 const themeInput = document.getElementById("theme-input");
 const dateInput = document.getElementById('datetime-picker');
