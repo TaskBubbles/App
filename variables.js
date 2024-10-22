@@ -126,9 +126,13 @@ function hslToRgba(h, s, l, a = 1.0) {
 // Function to reduce saturation of an RGBA color
 function reduceSaturation(rgba, reductionFactor) {
     let { r, g, b, a } = rgba;
-    let { h, s, l } = rgbaToHsl(r, g, b);
-    s = Math.max(0, s * (1 - reductionFactor)); // Reduce saturation by reductionFactor
-    return hslToRgba(h, s, l, a);
+    let gray = 0.3 * r + 0.59 * g + 0.11 * b;
+
+    r = r * (1 - reductionFactor) + gray * reductionFactor;
+    g = g * (1 - reductionFactor) + gray * reductionFactor;
+    b = b * (1 - reductionFactor) + gray * reductionFactor;
+
+    return { r: Math.round(r), g: Math.round(g), b: Math.round(b), a };
 }
 
 //#endregion
