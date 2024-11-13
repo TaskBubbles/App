@@ -329,8 +329,8 @@ class TaskBubble {
         const gradient = context.createLinearGradient(x0, y0, x1, y1);
 
         // Get start and end colors
-        const startColor = this.brighterColor(20); // Brighter color
-        const endColor = this.brighterColor(-10); // Darker color
+        const startColor = this.brighterColor(40); // Brighter color
+        const endColor = this.brighterColor(-15); // Darker color
 
         // Add color stops
         gradient.addColorStop(0, startColor);
